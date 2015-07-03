@@ -1,0 +1,7 @@
+zephyr_cours_homepage:
+    path:     /
+    defaults: { _controller: ZephyrCoursBundle:Default:index }
+
+api_get_student:
+    path:   /search/{query}
+    defaults: { _controller: ZephyrCoursBundle:Default:search }
