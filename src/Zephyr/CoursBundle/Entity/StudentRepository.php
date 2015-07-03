@@ -14,9 +14,9 @@ use Doctrine\ORM\Query;
  */
 class StudentRepository extends EntityRepository
 {
-	public function querySearch($query)
+    public function querySearch($query)
     {
-    	//Création d'un QueryBuilder
+        //Création d'un QueryBuilder
         $qb = $this->createQueryBuilder('s');
         //Récupération de l'objet Query avec le language DQL
         if($query == null) return $qb->getQuery();
@@ -26,7 +26,7 @@ class StudentRepository extends EntityRepository
         $words = explode(' ', $query);
         //Si l'user commencer à taper le code cantine
         if(count($words) === 1){
-        	//Analyse de query pour compléter le code cantine
+            //Analyse de query pour compléter le code cantine
             if(preg_match('/^[0-9]+$/', $query)) //Si c'est trouvé
                 $qb
                     //On place le code en paramètre et on cherche 
@@ -40,7 +40,7 @@ class StudentRepository extends EntityRepository
                     ->setParameter('query', "%$query%");
         }
         else{
-        	//Recherche par le nom et prénom
+            //Recherche par le nom et prénom
             foreach($words as $key => $word){
                 $qb
                     ->andWhere("s.firstName LIKE :query$key OR s.lastName LIKE :query$key")
@@ -54,12 +54,15 @@ class StudentRepository extends EntityRepository
     {
         $q = $this->querySearch($query);
         try{
-        	//Transforme la donnée en une array PHP
+            //Transforme la donnée en une array PHP
             $student = $q->getSingleResult(Query::HYDRATE_ARRAY);
         }
         catch(\Exception $e){
             return null;
         }
+
+        if(isset($student['firstName'])) $student['first_name'] = $student['firstName'];
+        if(isset($student['lastName'])) $student['last_name'] = $student['lastName'];
 
         return $student;
     }
@@ -67,7 +70,7 @@ class StudentRepository extends EntityRepository
     public function findAsArray($id)
     {
         try{
-        	//Recherche par le code cantine
+            //Recherche par le code cantine
             $student = $this->createQueryBuilder('s')
                 ->where('s.id = :id')
                 ->setParameter('id', $id)
@@ -78,12 +81,15 @@ class StudentRepository extends EntityRepository
             return null;
         }
 
+        if(isset($student['firstName'])) $student['first_name'] = $student['firstName'];
+        if(isset($student['lastName'])) $student['last_name'] = $student['lastName'];
+        
         return $student;
     }
 
     public function studentExist($id)
     {
-    	//Compteur d'étudiants
+        //Compteur d'étudiants
         return $this->createQueryBuilder('s')
             ->select('COUNT(s)')
             ->where('s.id = :id')
@@ -92,4 +98,3 @@ class StudentRepository extends EntityRepository
             ->getSingleScalarResult() == 1;
     }
 }
-
