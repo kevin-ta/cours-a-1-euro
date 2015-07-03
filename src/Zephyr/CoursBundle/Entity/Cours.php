@@ -37,6 +37,13 @@ class Cours
     private $date;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="cours")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $student;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -113,5 +120,28 @@ class Cours
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set student
+     *
+     * @param \Zephyr\CoursBundle\Entity\Student $student
+     * @return Cours
+     */
+    public function setStudent(\Zephyr\CoursBundle\Entity\Student $student)
+    {
+        $this->student = $student;
+
+        return $this;
+    }
+
+    /**
+     * Get student
+     *
+     * @return \Zephyr\CoursBundle\Entity\Student 
+     */
+    public function getStudent()
+    {
+        return $this->student;
     }
 }

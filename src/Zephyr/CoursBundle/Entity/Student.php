@@ -39,6 +39,11 @@ class Student
     private $email;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Cours", cascade={"persist"}, mappedBy="student")
+     */
+    private $cours;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -138,5 +143,58 @@ class Student
     public function getEmail()
     {
         return $this->email;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->cours = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Student
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Add cours
+     *
+     * @param \Zephyr\CoursBundle\Entity\Cours $cours
+     * @return Student
+     */
+    public function addCours(\Zephyr\CoursBundle\Entity\Cours $cours)
+    {
+        $this->cours[] = $cours;
+
+        return $this;
+    }
+
+    /**
+     * Remove cours
+     *
+     * @param \Zephyr\CoursBundle\Entity\Cours $cours
+     */
+    public function removeCours(\Zephyr\CoursBundle\Entity\Cours $cours)
+    {
+        $this->cours->removeElement($cours);
+    }
+
+    /**
+     * Get cours
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCours()
+    {
+        return $this->cours;
     }
 }
