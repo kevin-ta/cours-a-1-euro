@@ -42,6 +42,7 @@ jQuery.fn.extend({
                             $('#desc').hide();
                             $('#form').show();
                             $('#name').html(data.first_name + ' ' + data.last_name);
+
                         },
                         dataType: 'json'
                     });
@@ -51,4 +52,7 @@ jQuery.fn.extend({
                 $(this).change();
             });
     }
+});
+$(function(){
+    $('#search').student().change();
 });
