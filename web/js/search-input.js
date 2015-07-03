@@ -42,17 +42,6 @@ jQuery.fn.extend({
                             $('#desc').hide();
                             $('#form').show();
                             $('#name').html(data.first_name + ' ' + data.last_name);
-                            if(data.hasOwnProperty('quote')){
-                                $('#quote').html(data.quote);
-                                $('#img').cropper("setImgSrc", $('#img').data('src') + data.path.substr(data.path.indexOf("../web/")+ 7));
-
-                                $('label[for=file]').html('Choisir une autre photo');
-                                $('#request').attr('href', $('#request').data('href').replace('-id-', data.id));
-                            }
-                            else{
-                                $('#quote').html('');
-                                $('#request').removeAttr('href');
-                            }
                         },
                         dataType: 'json'
                     });
@@ -62,22 +51,4 @@ jQuery.fn.extend({
                 $(this).change();
             });
     }
-});
-$(function(){
-    $('#search').student().change();
-
-    $('#img').cropper({
-        aspectRatio: 472/551,
-        minWidth: 200,
-        data: {
-            x: 0, y: 0,
-            width: 472, height: 551
-        },
-        done: function(data) {
-            $('#x').val(data.x);
-            $('#y').val(data.y);
-            $('#w').val(data.width);
-            $('#h').val(data.height);
-        }
-    });
 });
