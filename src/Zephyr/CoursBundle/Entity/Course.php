@@ -1,5 +1,5 @@
 <?php
-
+//Entité inverse
 namespace Zephyr\CoursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -7,10 +7,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="cours")
- * @ORM\Entity(repositoryClass="Zephyr\CoursBundle\Entity\CoursRepository")
+ * @ORM\Table(name="course")
+ * @ORM\Entity(repositoryClass="Zephyr\CoursBundle\Entity\CourseRepository")
  */
-class Cours
+class Course
 {
     /**
      * @ORM\Id
@@ -21,27 +21,28 @@ class Cours
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $subject;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $unit;
 
     /**
     * @ORM\Column(name="date", type="datetime")
+    * @ORM\JoinColumn(nullable=false)
     *
     * @var \DateTime
     */
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="cours")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="students")
      */
-    private $student;
-
+    private $students;
 
     /**
      * Get id
@@ -57,7 +58,7 @@ class Cours
      * Set subject
      *
      * @param string $subject
-     * @return Cours
+     * @return Course
      */
     public function setSubject($subject)
     {
@@ -80,7 +81,7 @@ class Cours
      * Set unit
      *
      * @param string $unit
-     * @return Cours
+     * @return Course
      */
     public function setUnit($unit)
     {
@@ -103,7 +104,7 @@ class Cours
      * Set date
      *
      * @param \DateTime $date
-     * @return Cours
+     * @return Course
      */
     public function setDate($date)
     {
@@ -121,27 +122,44 @@ class Cours
     {
         return $this->date;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->students = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
-     * Set student
+     * Add students
      *
-     * @param \Zephyr\CoursBundle\Entity\Student $student
-     * @return Cours
+     * @param \Zephyr\CoursBundle\Entity\Course $students
+     * @return Course
      */
-    public function setStudent(\Zephyr\CoursBundle\Entity\Student $student)
+    public function addStudent(\Zephyr\CoursBundle\Entity\Course $students)
     {
-        $this->student = $student;
+        $this->students[] = $students;
 
         return $this;
     }
 
     /**
-     * Get student
+     * Remove students
      *
-     * @return \Zephyr\CoursBundle\Entity\Student 
+     * @param \Zephyr\CoursBundle\Entity\Course $students
      */
-    public function getStudent()
+    public function removeStudent(\Zephyr\CoursBundle\Entity\Course $students)
     {
-        return $this->student;
+        $this->students->removeElement($students);
+    }
+
+    /**
+     * Get students
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getStudents()
+    {
+        return $this->students;
     }
 }

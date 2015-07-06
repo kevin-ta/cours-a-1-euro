@@ -1,5 +1,5 @@
 <?php
-
+//Entité propriétaire
 namespace Zephyr\CoursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -20,28 +20,52 @@ class Student
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $class;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Cours", cascade={"persist"}, mappedBy="student")
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="courses")
      */
-    private $cours;
+    private $courses;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->courses = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return Student
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * Get id
@@ -144,57 +168,37 @@ class Student
     {
         return $this->email;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->cours = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Set id
+     * Add courses
      *
-     * @param integer $id
+     * @param \Zephyr\CoursBundle\Entity\Course $courses
      * @return Student
      */
-    public function setId($id)
+    public function addCourse(\Zephyr\CoursBundle\Entity\Course $courses)
     {
-        $this->id = $id;
+        $this->courses[] = $courses;
 
         return $this;
     }
 
     /**
-     * Add cours
+     * Remove courses
      *
-     * @param \Zephyr\CoursBundle\Entity\Cours $cours
-     * @return Student
+     * @param \Zephyr\CoursBundle\Entity\Course $courses
      */
-    public function addCours(\Zephyr\CoursBundle\Entity\Cours $cours)
+    public function removeCourse(\Zephyr\CoursBundle\Entity\Course $courses)
     {
-        $this->cours[] = $cours;
-
-        return $this;
+        $this->courses->removeElement($courses);
     }
 
     /**
-     * Remove cours
-     *
-     * @param \Zephyr\CoursBundle\Entity\Cours $cours
-     */
-    public function removeCours(\Zephyr\CoursBundle\Entity\Cours $cours)
-    {
-        $this->cours->removeElement($cours);
-    }
-
-    /**
-     * Get cours
+     * Get courses
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCours()
+    public function getCourses()
     {
-        return $this->cours;
+        return $this->courses;
     }
 }
