@@ -6,8 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ferus\FairPayApi\FairPay;
 use Doctrine\ORM\EntityManager;
 use Zephyr\CoursBundle\Entity\Cours;
+use Zephyr\CoursBundle\Entity\Student;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zephyr\CoursBundle\Form\StudentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 

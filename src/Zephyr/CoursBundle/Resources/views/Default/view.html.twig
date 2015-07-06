@@ -1,0 +1,8 @@
+{% if not student.courses.empty %}
+  <p>
+    Vous êtes actuellemnt inscrit dans les cours suivants :
+    {% for course in student.courses %}
+      {{ course.unit }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+  </p>
+{% endif %}
