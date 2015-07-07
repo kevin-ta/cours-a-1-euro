@@ -43,9 +43,15 @@ class Student
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="courses")
+     * @Assert\Type(type="Zephyr\CoursBundle\Entity\Course")
+     */
+    private $course;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
      */
     private $courses;
+
     /**
      * Constructor
      */

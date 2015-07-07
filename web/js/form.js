@@ -8,4 +8,3 @@ $( ".btn2" ).click(function() {
             });
     $( ".home2b" ).show( "fast");
 });
-$("form input.date").datepicker();

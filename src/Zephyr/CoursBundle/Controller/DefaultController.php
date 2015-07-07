@@ -5,13 +5,13 @@ namespace Zephyr\CoursBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ferus\FairPayApi\FairPay;
 use Doctrine\ORM\EntityManager;
-use Zephyr\CoursBundle\Entity\Cours;
-use Zephyr\CoursBundle\Entity\Student;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Zephyr\CoursBundle\Form\StudentType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Zephyr\CoursBundle\Entity\Course;
+use Zephyr\CoursBundle\Entity\Student;
+use Zephyr\CoursBundle\Form\CourseType;
 
 class DefaultController extends Controller
 {
@@ -21,6 +21,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+
         if($request->isMethod('POST')){
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
 
@@ -44,10 +45,21 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
             }
-            else{
-            }
 
-            $form = $this->createForm(new StudentType(), $student);
+            //Création du form
+            $course = new Course();
+            $form = $this->createForm(new CourseType(), $course);
+
+            $subject->get('subject')->getData();
+            $unit->get('unit')->getData();
+            $date->get('date')->getData();
+
+            $course->setSubject($subject->subject);
+            $course->setUnit($unit->unit);
+            $course->setDate(new \DateTime($date->date));
+
+            $student->addCourse($course);
+
             $form->handleRequest($request);
 
             if(! $form->isValid())
@@ -55,27 +67,12 @@ class DefaultController extends Controller
                     'error' => 'Formulaire mal rempli.'
                 );
 
+            $this->em->persist($course);
             $this->em->persist($student);
             $this->em->flush();
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours à 1 euro] Confirmation de cours')
-                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
-                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
-                ->setBody(
-                    $this->renderView(
-                        'ZephyrCoursBundle:Email:confirm.html.twig',
-                        array(
-                            'name' => $student->getFirstName(),
-                            'id' => $student->getId(),
-                        )
-                    )
-                )
-            ;
-            $this->get('mailer')->send($message);
-
             return array(
-                'success' => 'Infos mis à jour. Check tes mails !'
+                'success' => 'Cours enregistré.'
             );
         }
 
