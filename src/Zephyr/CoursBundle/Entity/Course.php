@@ -44,6 +44,11 @@ class Course
      */
     private $students;
 
+     /**
+     * @Assert\Type(type="Zephyr\CoursBundle\Entity\Student")
+     */
+    protected $student;
+
     /**
      * Get id
      *
@@ -161,5 +166,15 @@ class Course
     public function getStudents()
     {
         return $this->students;
+    }
+
+    public function getStudent()
+    {
+        return $this->student;
+    }
+
+    public function setStudent(Student $student = null)
+    {
+        $this->student = $student;
     }
 }

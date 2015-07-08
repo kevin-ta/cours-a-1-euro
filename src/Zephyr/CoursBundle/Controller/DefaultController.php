@@ -5,7 +5,6 @@ namespace Zephyr\CoursBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ferus\FairPayApi\FairPay;
 use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -15,13 +14,14 @@ use Zephyr\CoursBundle\Form\CourseType;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Template
-     */
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        //Création du form
+        $course = new Course();
+        $form = $this->createForm('course', $course);
 
+        //Si on a soumis le formulaire
         if($request->isMethod('POST')){
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
 
@@ -46,38 +46,24 @@ class DefaultController extends Controller
                 $student->setEmail($data->email);
             }
 
-            //Création du form
-            $course = new Course();
-            $form = $this->createForm(new CourseType(), $course);
-
-            $subject->get('subject')->getData();
-            $unit->get('unit')->getData();
-            $date->get('date')->getData();
-
-            $course->setSubject($subject->subject);
-            $course->setUnit($unit->unit);
-            $course->setDate(new \DateTime($date->date));
-
-            $student->addCourse($course);
-
             $form->handleRequest($request);
 
             if(! $form->isValid())
-                return array(
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => 'Formulaire mal rempli.'
-                );
+                ));
 
             $this->em->persist($course);
-            $this->em->persist($student);
             $this->em->flush();
 
-            return array(
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                 'success' => 'Cours enregistré.'
-            );
+            ));
         }
 
-        return array(
-        );
+         return $this->render('ZephyrCoursBundle:Default:index.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
 	public function searchAction($query)

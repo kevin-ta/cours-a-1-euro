@@ -2,3 +2,11 @@ services:
 #    zephyr_cours.example:
 #        class: Zephyr\CoursBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    zephyr_cours.student:
+        class: Zephyr\CoursBundle\Form\StudentType
+        tags:
+            - { name: form.type, alias: student }
+    zephyr_cours.course:
+        class: Zephyr\CoursBundle\Form\CourseType
+        tags:
+            - { name: form.type, alias: course }

@@ -24,22 +24,34 @@
         <div class="jumbotron col-md-12 home2" style="display:none">
             <div>
                 <a class="btn btn-lg btn-primary back" href="#" role="button">Retour</a></br></br></br>
-                <p>Postuler pour les demandes en cours :</p>
-                <p>Vous n'avez pas trouvé votre bonheur ?</p>
-                <h1 id="name"></h1>
+                <h3 id="name">Qui êtes-vous ?</h3>
                 <form enctype="multipart/form-data" method="post">
-                    <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
-                    <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+                    <div class="form-group">
+                        <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
+                        <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+                    </div>
                     <div id="form" style="display: none">
-                        <input type="text" id="subject" name="subject" class="form-control" placeholder="Text input">
-                        <input type="text" id="unit" name="unit" class="form-control" placeholder="Text input">
-                        <input type="text" id="date" name="date" class="form-control" placeholder="Text input">
+                        <div class="form-group">
+                            {{ form_label(form.subject) }}
+                            {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.unit) }}
+                            {{ form_widget(form.unit, {'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.date) }}
+                            {{ form_widget(form.date) }}
+                        </div>
+                        <input type="submit" class="btn btn-primary" />
                         <center><button id="send" class="btn btn-primary" style="margin-top: 15px">
                             <i class="glyphicon glyphicon-ok"></i> Proposer un cours
                         </button></center>
                     </div>
+                    </div>
                 </form>
-            </div>
+                    
+         </div>
         </div>
         <div class="jumbotron col-md-12 home2b" style="display:none">
             <div>
