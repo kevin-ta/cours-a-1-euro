@@ -51,6 +51,7 @@ class CourseType extends AbstractType
 	{
 	    $resolver->setDefaults(array(
 	        'data_class' => 'Zephyr\CoursBundle\Entity\Course',
+            'csrf_protection' => false,
 	    ));
 	}
 

@@ -22,6 +22,7 @@ class StudentType extends AbstractType
         $resolver->setDefaults(array(
             'data_class' => 'Zephyr\CoursBundle\Entity\Student',
             'allow_extra_fields' => true,
+            'csrf_protection' => false,
         ));
     }
 
