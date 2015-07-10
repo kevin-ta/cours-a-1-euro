@@ -13,12 +13,12 @@ class CourseType extends AbstractType
         $builder
             ->add('student', 'student')
             ->add('subject', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Course',
+                  'class'    => 'ZephyrCoursBundle:Subject',
                   'property' => 'subject',
                   'multiple' => false,
                   'expanded' => false))
             ->add('unit', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Course',
+                  'class'    => 'ZephyrCoursBundle:Unit',
                   'property' => 'unit',
                   'multiple' => false,
                   'expanded' => false))

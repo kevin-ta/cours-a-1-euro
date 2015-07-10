@@ -11,6 +11,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zephyr\CoursBundle\Entity\Course;
 use Zephyr\CoursBundle\Entity\Student;
 use Zephyr\CoursBundle\Form\CourseType;
+use Zephyr\CoursBundle\Entity\Subject;
+use Zephyr\CoursBundle\Entity\Unit;
 
 class DefaultController extends Controller
 {

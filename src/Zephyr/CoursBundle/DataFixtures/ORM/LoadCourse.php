@@ -7,7 +7,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Zephyr\CoursBundle\Entity\Course;
 
 
-class LoadCategory implements FixtureInterface
+class LoadCourse implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
