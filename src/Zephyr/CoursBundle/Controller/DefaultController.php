@@ -13,6 +13,7 @@ use Zephyr\CoursBundle\Entity\Student;
 use Zephyr\CoursBundle\Form\CourseType;
 use Zephyr\CoursBundle\Entity\Subject;
 use Zephyr\CoursBundle\Entity\Unit;
+use Zephyr\CoursBundle\Entity\Classe;
 
 class DefaultController extends Controller
 {
@@ -55,6 +56,7 @@ class DefaultController extends Controller
                     'error' => 'Formulaire mal rempli.'
                 ));
 
+            $course->addStudent($student);
             $em->persist($course);
             $em->flush();
 

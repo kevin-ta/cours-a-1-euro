@@ -120,4 +120,9 @@ class Unit
     {
         return $this->classe;
     }
+
+    public function __toString()
+    {
+        return (string) $this->getName();
+    }
 }

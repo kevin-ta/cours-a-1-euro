@@ -10,3 +10,7 @@ services:
         class: Zephyr\CoursBundle\Form\CourseType
         tags:
             - { name: form.type, alias: course }
+    zephyr_cours.classe:
+        class: Zephyr\CoursBundle\Form\ClasseType
+        tags:
+            - { name: form.type, alias: classe }

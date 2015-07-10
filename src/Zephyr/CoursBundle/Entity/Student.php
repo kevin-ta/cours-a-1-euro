@@ -1,5 +1,5 @@
 <?php
-//Entité propriétaire
+//Entité inverse
 namespace Zephyr\CoursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -48,7 +48,7 @@ class Student
     private $course;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", inversedBy="students")
      */
     private $courses;
 
@@ -175,34 +175,18 @@ class Student
         return $this->email;
     }
 
-    /**
-     * Add courses
-     *
-     * @param \Zephyr\CoursBundle\Entity\Course $courses
-     * @return Student
-     */
-    public function addCourse(\Zephyr\CoursBundle\Entity\Course $courses)
+    public function addCourse(Course $course)
     {
-        $this->courses[] = $courses;
+        $this->courses[] = $course;
 
         return $this;
     }
 
-    /**
-     * Remove courses
-     *
-     * @param \Zephyr\CoursBundle\Entity\Course $courses
-     */
-    public function removeCourse(\Zephyr\CoursBundle\Entity\Course $courses)
+    public function removeCourse(Course $course)
     {
-        $this->courses->removeElement($courses);
+        $this->courses->removeElement($course);
     }
 
-    /**
-     * Get courses
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
     public function getCourses()
     {
         return $this->courses;

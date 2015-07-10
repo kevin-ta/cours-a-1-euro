@@ -1,5 +1,5 @@
 <?php
-//Entité inverse
+//Entité propriétaire
 namespace Zephyr\CoursBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,6 +18,12 @@ class Course
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $classe;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -40,14 +46,9 @@ class Course
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="courses")
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", mappedBy="courses")
      */
     private $students;
-
-     /**
-     * @Assert\Type(type="Zephyr\CoursBundle\Entity\Student")
-     */
-    protected $student;
 
     /**
      * Get id
@@ -135,27 +136,17 @@ class Course
         $this->students = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add students
-     *
-     * @param \Zephyr\CoursBundle\Entity\Course $students
-     * @return Course
-     */
-    public function addStudent(\Zephyr\CoursBundle\Entity\Course $students)
+    public function addStudent(Student $student)
     {
-        $this->students[] = $students;
+        $student->addCourse($this);
+        $this->students[] = $student;
 
         return $this;
     }
 
-    /**
-     * Remove students
-     *
-     * @param \Zephyr\CoursBundle\Entity\Course $students
-     */
-    public function removeStudent(\Zephyr\CoursBundle\Entity\Course $students)
+    public function removeStudent(Student $student)
     {
-        $this->students->removeElement($students);
+        $this->students->removeElement($student);
     }
 
     /**
@@ -168,18 +159,26 @@ class Course
         return $this->students;
     }
 
-    public function getStudent()
+    /**
+     * Set classe
+     *
+     * @param string $classe
+     * @return Course
+     */
+    public function setClasse($classe)
     {
-        return $this->student;
+        $this->classe = $classe;
+
+        return $this;
     }
 
-    public function setStudent(Student $student = null)
+    /**
+     * Get classe
+     *
+     * @return string 
+     */
+    public function getClasse()
     {
-        $this->student = $student;
-    }
-
-    public function __toString()
-    {
-        return $this->unit;
+        return $this->classe;
     }
 }
