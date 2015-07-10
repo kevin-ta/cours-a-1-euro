@@ -53,8 +53,8 @@ class DefaultController extends Controller
                     'error' => 'Formulaire mal rempli.'
                 ));
 
-            $this->em->persist($course);
-            $this->em->flush();
+            $em->persist($course);
+            $em->flush();
 
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                 'success' => 'Cours enregistré.'

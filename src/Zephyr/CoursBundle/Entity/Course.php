@@ -177,4 +177,9 @@ class Course
     {
         $this->student = $student;
     }
+
+    public function __toString()
+    {
+        return $this->unit;
+    }
 }
