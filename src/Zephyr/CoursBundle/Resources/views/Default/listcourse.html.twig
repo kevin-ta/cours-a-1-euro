@@ -1,0 +1,20 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<h1>Un cours d'une heure pour 1 euro</h1>
+    <br>
+    <div class="row">
+        <div class="jumbotron col-md-12">
+            <a class="btn btn-lg btn-primary back" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
+            <h4>Voici la liste des cours :</h4><br>
+            <p>
+            {% for course in courses %}
+                {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} <a class="btn btn-sm btn-primary back" href="#" role="button">Rejoindre</a>
+                 {% if not loop.last %}
+                    <br><br> 
+                 {% endif %}
+            {% endfor %}
+            <p>
+        </div>
+    </div>
+{% endblock body %}

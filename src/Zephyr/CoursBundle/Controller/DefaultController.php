@@ -70,6 +70,20 @@ class DefaultController extends Controller
         ));
     }
 
+    public function mycourseAction()
+    {
+         return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig');
+    }
+
+    public function listcourseAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAll();
+
+        return $this->render('ZephyrCoursBundle:Default:listcourse.html.twig', array('courses' => $courses)
+            );
+    }
+
 	public function searchAction($query)
     {
         try{

@@ -1,4 +1,4 @@
-{% extends '::navbar.html.twig' %}
+{% extends '::base.bis.html.twig' %}
 
 {% block body %}
     <h1>Un cours d'une heure pour 1 euro</h1>
@@ -31,6 +31,27 @@
                         <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
                     </div>
                     <div id="form" style="display: none">
+                        <h3>Voici les cours auquels vous êtes inscrits en tant qu'élève :</h3>
+                        
+                        <center><button id="send" class="btn btn-primary" style="margin-top: 15px">
+                            <i class="glyphicon glyphicon-ok"></i> Demander un nouveau cours
+                        </button></center>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="jumbotron col-md-12 home3" style="display:none">
+            <div>
+                <a class="btn btn-lg btn-primary back" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
+                <h3 id="name">Qui êtes-vous ?</h3>
+                <form enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
+                        <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+                    </div>
+                    <div id="form" style="display: none">
                         <div class="form-group">
                             {{ form_label(form.subject) }}
                             {{ form_widget(form.subject, {'attr': {'class': 'form-control'}}) }}
@@ -49,10 +70,9 @@
                     </div>
                     </div>
                 </form>
-                    
-         </div>
+            </div>
         </div>
-        <div class="jumbotron col-md-12 home2b" style="display:none">
+        <div class="jumbotron col-md-12 home3b" style="display:none">
             <div>
                 <a class="btn btn-lg btn-primary back" href="#" role="button">Retour</a></br></br></br>
                 <p>Rejoindre un cours existant :</p>

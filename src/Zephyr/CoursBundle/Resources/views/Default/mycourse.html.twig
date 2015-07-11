@@ -1,0 +1,24 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<h1>Un cours d'une heure pour 1 euro</h1>
+    <br>
+    <div class="row">
+        <div class="jumbotron col-md-12">
+            <a class="btn btn-lg btn-primary back" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
+            <h3 id="name">Qui êtes-vous ?</h3>
+            <form enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
+                    <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+                </div><br>
+                <div id="form" style="display: none">
+                    <h4>Voici les cours auquels vous êtes inscrits en tant qu'élève :</h4>
+
+                    <h4>Voici les cours auquels vous êtes inscrits en tant que prof :</h4>
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock body %}

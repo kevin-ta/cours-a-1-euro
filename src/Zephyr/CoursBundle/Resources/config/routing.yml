@@ -6,6 +6,10 @@ api_get_student:
     path:   /search/{query}
     defaults: { _controller: ZephyrCoursBundle:Default:search }
 
-zephyr_cours_add:
-    path:   /add/{query}
-    defaults: { _controller: ZephyrCoursBundle:Default:add }
+zephyr_cours_mycourse:
+    path:   /mycourse
+    defaults: { _controller: ZephyrCoursBundle:Default:mycourse }
+
+zephyr_cours_listcourse:
+    path:   /listcourse
+    defaults: { _controller: ZephyrCoursBundle:Default:listcourse }
