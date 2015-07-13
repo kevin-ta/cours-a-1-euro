@@ -51,6 +51,13 @@ class Course
     private $students;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Student")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $prof;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -152,7 +159,7 @@ class Course
     /**
      * Get students
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getStudents()
     {
@@ -180,5 +187,28 @@ class Course
     public function getClasse()
     {
         return $this->classe;
+    }
+
+    /**
+     * Set prof
+     *
+     * @param string $prof
+     * @return Course
+     */
+    public function setProf($prof)
+    {
+        $this->prof = $prof;
+
+        return $this;
+    }
+
+    /**
+     * Get prof
+     *
+     * @return string 
+     */
+    public function getProf()
+    {
+        return $this->prof;
     }
 }

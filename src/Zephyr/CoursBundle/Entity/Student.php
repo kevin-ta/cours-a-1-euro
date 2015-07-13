@@ -43,11 +43,6 @@ class Student
     private $email;
 
     /**
-     * @Assert\Type(type="Zephyr\CoursBundle\Entity\Course")
-     */
-    private $course;
-
-    /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", inversedBy="students")
      */
     private $courses;
@@ -190,5 +185,19 @@ class Student
     public function getCourses()
     {
         return $this->courses;
+    }
+
+    public function concat()
+    {
+        $firstname = $this->getFirstName();
+        $lastname = $this->getLastName();
+        $name = $firstname." ".$lastname;
+        return $name;
+    }
+
+    public function __toString()
+    {
+        $name = $this->concat();
+        return $name;
     }
 }

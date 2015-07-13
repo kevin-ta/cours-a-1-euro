@@ -56,7 +56,7 @@ class DefaultController extends Controller
                     'error' => 'Formulaire mal rempli.'
                 ));
 
-            $course->addStudent($student);
+            $course->setProf($student);
             $em->persist($course);
             $em->flush();
 
@@ -65,14 +65,18 @@ class DefaultController extends Controller
             ));
         }
 
-         return $this->render('ZephyrCoursBundle:Default:index.html.twig', array(
+        return $this->render('ZephyrCoursBundle:Default:index.html.twig', array(
             'form' => $form->createView(),
         ));
     }
 
     public function mycourseAction()
     {
-         return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAll();
+
+        return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig', array('courses' => $courses)
+            );
     }
 
     public function listcourseAction()

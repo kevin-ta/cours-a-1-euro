@@ -12,10 +12,5 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
-	public function addStudent()
-	{
-    	$qb = $this->createQueryBuilder('a')
-               	   ->where('a.publication = 1');
-        return $qb;
-    }
+
 }
