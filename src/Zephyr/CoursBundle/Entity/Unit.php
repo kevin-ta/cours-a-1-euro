@@ -26,13 +26,13 @@ class Unit
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Subject", inversedBy="units", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Subject", inversedBy="units")
      * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
      */
     protected $subject;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Classe", inversedBy="units", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Classe", inversedBy="units")
      * @ORM\JoinColumn(name="classe", referencedColumnName="id")
      */
     protected $classe;
@@ -123,6 +123,6 @@ class Unit
 
     public function __toString()
     {
-        return (string) $this->getName();
+        return $this->name;
     }
 }

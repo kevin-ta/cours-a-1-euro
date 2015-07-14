@@ -12,19 +12,18 @@ class CourseType extends AbstractType
     {
         $builder
             ->add('classe', 'entity', array(
-                  'mapped' => false,
                   'class'    => 'ZephyrCoursBundle:Classe',
                   'property' => 'name',
                   'multiple' => false,
                   'expanded' => false))
             ->add('subject', 'entity', array(
                   'class'    => 'ZephyrCoursBundle:Subject',
-                  'property' => 'subject',
+                  'property' => 'name',
                   'multiple' => false,
                   'expanded' => false))
             ->add('unit', 'entity', array(
                   'class'    => 'ZephyrCoursBundle:Unit',
-                  'property' => 'unit',
+                  'property' => 'name',
                   'multiple' => false,
                   'expanded' => false))
             ->add('date', 'collot_datetime', array( 'pickerOptions' => array(
@@ -56,7 +55,7 @@ class CourseType extends AbstractType
 	{
 	    $resolver->setDefaults(array(
 	        'data_class' => 'Zephyr\CoursBundle\Entity\Course',
-            'csrf_protection' => false,
+          'csrf_protection' => false,
 	    ));
 	}
 

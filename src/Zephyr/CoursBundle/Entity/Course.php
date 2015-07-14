@@ -21,7 +21,7 @@ class Course
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $classe;
 

@@ -24,9 +24,10 @@ class Classe
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Zephyr\CoursBundle\Entity\Unit", mappedBy="classe", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Zephyr\CoursBundle\Entity\Unit", mappedBy="classe", cascade={"persist"})
      */
     protected $units;
+
     /**
      * Constructor
      */

@@ -9,7 +9,7 @@
             <h4>Voici la liste des cours :</h4><br>
             <p>
             {% for course in courses %}
-                {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} <a class="btn btn-sm btn-primary back" href="#" role="button">Rejoindre</a>
+                {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} avec {{ course.prof }} <a class="btn btn-sm btn-primary back" href="#" role="button">Rejoindre</a>
                  {% if not loop.last %}
                     <br><br> 
                  {% endif %}

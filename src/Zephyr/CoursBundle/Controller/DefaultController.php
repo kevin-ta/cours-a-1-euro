@@ -7,6 +7,7 @@ use Ferus\FairPayApi\FairPay;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Zephyr\CoursBundle\Entity\Course;
 use Zephyr\CoursBundle\Entity\Student;
