@@ -84,13 +84,41 @@ class DefaultController extends Controller
         ));
     }
 
-    public function mycourseAction()
+    public function mycourseAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAll();
 
-        return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig', array('courses' => $courses)
+        if($request->isMethod('POST')){
+            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+
+            if($student === null){
+                try{
+                    $fairpay = new FairPay();
+                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    $data = $fairpay->getStudent($request->request->get('id'));
+                }
+                catch(ApiErrorException $e){
+                    return array(
+                        'error' => 'Code cantine incorrect.'
+                    );
+                }
+
+                $student = new Student();
+                $student->setId($data->id);
+                $student->setClass($data->class);
+                $student->setFirstName($data->first_name);
+                $student->setLastName($data->last_name);
+                $student->setEmail($data->email);
+            }
+
+            $courses = $em->getRepository('ZephyrCoursBundle:Course')->findOneBy(array('prof' => $student));
+
+            return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array('courses' => $courses)
             );
+        }
+
+        return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig');
     }
 
     public function listcourseAction()

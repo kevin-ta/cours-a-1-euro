@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+{% for course in courses %}
+    {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
+    {% if not loop.last %}
+        <br><br>     
+    {% endif %}
+{% endfor %}
+
+{% endblock body %}
