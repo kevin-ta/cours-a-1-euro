@@ -57,69 +57,29 @@ class DefaultController extends Controller
                     'error' => 'Formulaire mal rempli.'
                 ));
 
-            $course->setProf($student);
-            $em->persist($course);
-            $em->flush();
+            if ($this->getRequest()->request->get('submit') == 'prof')
+            {
+                $course->setProf($student);
+                $em->persist($course);
+                $em->flush();
 
-            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                 'success' => 'Cours enregistré.'
-            ));
+                ));
+            }
+            elseif ($this->getRequest()->request->get('submit') == 'eleve')
+            {
+                $course->addStudent($student);
+                $em->persist($course);
+                $em->flush();
+
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'success' => 'Cours enregistré.'
+                ));
+            }
         }
 
         return $this->render('ZephyrCoursBundle:Default:index.html.twig', array(
-            'form' => $form->createView(),
-        ));
-    }
-
-    public function newcourseAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        //Création du form
-        $course = new Course();
-        $form = $this->createForm('course', $course);
-
-        //Si on a soumis le formulaire
-        if($request->isMethod('POST')){
-            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-
-            if($student === null){
-                try{
-                    $fairpay = new FairPay();
-                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
-                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
-                    $data = $fairpay->getStudent($request->request->get('id'));
-                }
-                catch(ApiErrorException $e){
-                    return array(
-                        'error' => 'Code cantine incorrect.'
-                    );
-                }
-
-                $student = new Student();
-                $student->setId($data->id);
-                $student->setClass($data->class);
-                $student->setFirstName($data->first_name);
-                $student->setLastName($data->last_name);
-                $student->setEmail($data->email);
-            }
-
-            $form->handleRequest($request);
-
-            if(! $form->isValid())
-                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'error' => 'Formulaire mal rempli.'
-                ));
-
-            $course->addStudent($student);
-            $em->persist($course);
-            $em->flush();
-
-            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                'success' => 'Cours enregistré.'
-            ));
-        }
-
-        return $this->render('ZephyrCoursBundle:Default:newcourse.html.twig', array(
             'form' => $form->createView(),
         ));
     }
