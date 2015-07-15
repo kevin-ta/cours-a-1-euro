@@ -20,25 +20,21 @@ class Student
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $class;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $email;
 

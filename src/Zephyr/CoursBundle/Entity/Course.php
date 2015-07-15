@@ -21,25 +21,21 @@ class Course
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $classe;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $subject;
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $unit;
 
     /**
     * @ORM\Column(name="date", type="datetime")
-    * @ORM\JoinColumn(nullable=false)
     *
     * @var \DateTime
     */
@@ -51,9 +47,7 @@ class Course
     private $students;
 
     /**
-     * @ORM\Column(type="string", length=50)
-     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Student")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $prof;
 

@@ -19,7 +19,6 @@ class Classe
 
     /**
      * @ORM\Column(type="string", length=50)
-     * @ORM\JoinColumn(nullable=false)
      */
     private $name;
 

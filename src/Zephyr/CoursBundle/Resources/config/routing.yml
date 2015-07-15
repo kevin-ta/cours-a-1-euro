@@ -13,3 +13,7 @@ zephyr_cours_mycourse:
 zephyr_cours_listcourse:
     path:   /listcourse
     defaults: { _controller: ZephyrCoursBundle:Default:listcourse }
+
+zephyr_cours_newcourse:
+    path:   /newcourse
+    defaults: { _controller: ZephyrCoursBundle:Default:newcourse }

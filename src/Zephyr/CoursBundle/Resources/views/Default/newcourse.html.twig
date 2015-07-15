@@ -4,24 +4,7 @@
     <h1>Un cours d'une heure pour 1 euro</h1>
     <br>
     <div class="row">
-        <!--step 1 status -->
-        <div class="jumbotron col-md-6 home1">
-            <div>
-                <h2>En tant que prof :</h2>
-                <p>Envie d'un peu d'argent ? Vous avez la possibilité de proposer un cours dans la matière de votre choix.</p><p>Vous fixez le créneau du cours ainsi que le nombre minimum et maximum d'élèves.</p><p>Vous pouvez également consulter les demandes déjà en ligne.</p><p>Vous êtes rémunéré <b>1€ pour chaque élève</b> présent au cours.</p><p>Il est de votre responsabilité de vous assurer que vous avez le niveau requis et que tout se déroule correctement.</p><br>
-                <center><a class="btn btn-lg btn-primary btn1" href="#" role="button">Je veux donner un cours</a></center>
-            </div>
-        </div>
-        <div class="jumbotron col-md-6 home1">
-            <div>
-                <h2>En tant qu'élève :</h2>
-                <p>Pour 1€ symbolique, préparez efficacement vos partiels et inscrivez-vous à un cours de soutien.</p><p>Vous pouvez soit créer une demande de cours, soit consulter celles déjà présentes.</p><p>Afin de faciliter les démarches, n'hésitez pas à repérer un cours et à vous y inscrire à plusieurs.</p><p>Afin que le système perdure, il est de votre devoir de respecter votre engagement à un cours.<p>Par respect pour le professeur, ne vous inscrivez pas si vous n'êtes pas sûr de pouvoir être présent à la séance.</p><br>
-                <center><a class="btn btn-lg btn-primary btn2" href="{{ path('zephyr_cours_newcourse') }}" role="button">M'inscrire pour un cours</a></center>
-            </div>
-        </div>
-
-        <!--step 2 form -->
-        <div class="jumbotron col-md-12 home2" style="display:none">
+        <div class="jumbotron col-md-12">
             <div>
                 <a class="btn btn-lg btn-primary" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
                 <h3 id="name">Qui êtes-vous ?</h3>
@@ -48,7 +31,7 @@
                             {{ form_widget(form.date) }}
                         </div>
                         <center><button id="send" class="btn btn-primary" style="margin-top: 15px">
-                            <i class="glyphicon glyphicon-ok"></i> Proposer un cours
+                            <i class="glyphicon glyphicon-ok"></i> Demander un cours
                         </button></center>
                     </div>
                     </div>
