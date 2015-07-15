@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <title>{% block title %}Cours à 1 euro{% endblock %}</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8" />
 
-    <title>{% block title %}Cours à 1 euro{% endblock %}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-    {% block stylesheets %}
-        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        {{ form_stylesheet(form) }}
-    {% endblock %}
+{% block stylesheets %}
+    <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    {{ form_stylesheet(form) }}
+{% endblock %}
 </head>
 
 <body data-get-student-api="{{ path('api_get_student', {query:'-query-'}) }}">
-    {% block navbar %}
+{% block navbar %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
-
             <div class="navbar-header">
                 <a class="navbar-brand" href="{{ path('zephyr_cours_homepage') }}">Cours à 1 euro</a>
             </div>
-
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ path('zephyr_cours_homepage') }}">S'inscrire à un cours</a></li>
@@ -31,18 +29,17 @@
             </div>
         </div>
     </nav>
-    {% endblock %}
+{% endblock %}
     <div class="container">
         {% block body %}{% endblock %}
     </div>
 
-    {% block javascripts %}
-        <script src="{{ asset('//code.jquery.com/jquery-2.1.4.min.js') }}"></script>
-        <script src="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/form.js') }}"></script>
-        <script src="{{ asset('js/search-input.js') }}"></script>
-        <script src="{{ asset('js/search2.js') }}"></script>
-        {{ form_javascript(form) }}
-    {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('//code.jquery.com/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/form.js') }}"></script>
+    <script src="{{ asset('js/search-input.js') }}"></script>
+    {{ form_javascript(form) }}
+{% endblock %}
 </body>
 </html>
