@@ -25,7 +25,7 @@ class Subject
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="Zephyr\CoursBundle\Entity\Unit", mappedBy="subject", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Zephyr\CoursBundle\Entity\Unit", mappedBy="subject")
      */
     protected $units;
     /**

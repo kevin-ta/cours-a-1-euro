@@ -43,6 +43,7 @@ class Course
 
     /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="courses")
+     * @ORM\JoinTable(name="course_student")
      */
     private $students;
 
@@ -139,7 +140,6 @@ class Course
 
     public function addStudent(Student $student)
     {
-        $student->addCourse($this);
         $this->students[] = $student;
 
         return $this;

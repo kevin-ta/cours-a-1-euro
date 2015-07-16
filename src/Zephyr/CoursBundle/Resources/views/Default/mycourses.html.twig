@@ -9,8 +9,10 @@
         <br>
 {% endfor %}
 </p>
-
 <h3>Voici les cours où vous êtes élèves :</h3>
-
+{% for course in eleve %}
+    Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
+        <br>
+{% endfor %}
 
 {% endblock body %}

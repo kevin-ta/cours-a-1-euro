@@ -40,8 +40,7 @@ class Student
 
     /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
-     * @ORM\JoinColumn(nullable=false)
-     */
+     **/
     private $courses;
 
     /**
@@ -167,18 +166,34 @@ class Student
         return $this->email;
     }
 
-    public function addCourse(Course $course)
+    /**
+     * Add courses
+     *
+     * @param \Zephyr\CoursBundle\Entity\Course $courses
+     * @return Student
+     */
+    public function addCourse(\Zephyr\CoursBundle\Entity\Course $course)
     {
         $this->courses[] = $course;
 
         return $this;
     }
 
-    public function removeCourse(Course $course)
+    /**
+     * Remove courses
+     *
+     * @param \Zephyr\CoursBundle\Entity\Course $courses
+     */
+    public function removeCourse(\Zephyr\CoursBundle\Entity\Course $course)
     {
         $this->courses->removeElement($course);
     }
 
+    /**
+     * Get courses
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
     public function getCourses()
     {
         return $this->courses;

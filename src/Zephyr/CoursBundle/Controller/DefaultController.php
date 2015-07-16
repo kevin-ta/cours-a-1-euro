@@ -61,7 +61,6 @@ class DefaultController extends Controller
             {
                 $course->setProf($student);
                 $em->persist($course);
-                //$this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->tri();
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -72,7 +71,6 @@ class DefaultController extends Controller
             {
                 $course->addStudent($student);
                 $em->persist($course);
-                //$this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->tri();
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -116,10 +114,12 @@ class DefaultController extends Controller
 
             $courses = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
 
-            $courses_eleve = $em->getRepository('ZephyrCoursBundle:Course')->findByStudents($student->__toString());
+            $eleve = $student->getCourses();
 
-            return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array('courses' => $courses)
-            );
+            return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array(
+                'courses' => $courses,
+                'eleve' => $eleve
+                ));
         }
 
         return $this->render('ZephyrCoursBundle:Default:mycourse.html.twig');
@@ -129,6 +129,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAllOrdered();
+
         return $this->render('ZephyrCoursBundle:Default:listcourse.html.twig', array('courses' => $courses, 
             ));
     }
