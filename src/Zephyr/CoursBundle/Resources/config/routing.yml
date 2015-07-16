@@ -17,3 +17,19 @@ zephyr_cours_listcourse:
 zephyr_cours_newcourse:
     path:   /newcourse
     defaults: { _controller: ZephyrCoursBundle:Default:newcourse }
+
+zephyr_cours_admin:
+    path:     /admin
+    defaults: { _controller: ZephyrCoursBundle:Default:admin }
+
+zephyr_cours_show:
+    path:     /admin/{id}
+    defaults: { _controller: ZephyrCoursBundle:Default:show }
+
+zephyr_cours_addstudent:
+    path:     /addstudent/{id}
+    defaults: { _controller: ZephyrCoursBundle:Default:addstudent }
+
+zephyr_cours_addprof:
+    path:     /addprof/{id}
+    defaults: { _controller: ZephyrCoursBundle:Default:addprof }

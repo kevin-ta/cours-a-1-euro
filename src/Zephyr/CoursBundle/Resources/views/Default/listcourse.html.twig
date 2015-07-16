@@ -5,37 +5,43 @@
     <br>
     <div class="row">
         <!--step 1 status -->
-        <div class="jumbotron col-md-6 home1">
-            <div>
-                <h3>Nous recherchons un prof pour :</h3><br><br>
-                <p>
-                {% for course in courses %}
-                    {% if course.prof == NULL %}
-                        {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} <a class="btn btn-sm btn-primary back" href="#" role="button">Prendre</a>
-                        {% if not loop.last %}
-                            <br><br>
-                        {% endif %}
-                    {% endif %}
-                {% endfor %}
-                </p>
-            </div>
+        <div class="col-md-6 home1">
+            <h3>Nous recherchons un prof :</h3><br><br>
+            {% set classe = '' %}
+            {% for course in courses %}
+            {% if classe != course.classe %}
+                {% set classe = course.classe %}
+                <h2>{{ classe }}</h2>
+            {% endif %}
+                {% if course.prof == NULL %}
+                    <a href="{{ path('zephyr_cours_addprof', {id:course.id}) }}" data-id="{{ course.id }}">
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+            </a>
+                {% endif %}
+                <br>
+            {% endfor %}
+            </p>
         </div>
-        <div class="jumbotron col-md-6 home1">
-            <div>
-                <h3>Il manque des élèves pour :</h3><br><br> 
-                <p>
-                {% for course in courses %}
-                    {% if course.prof != NULL %}
-                        {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} avec {{ course.prof }} <a class="btn btn-sm btn-primary back" href="#" role="button">Rejoindre</a>
-                    {% else %}
-                        {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }} <a class="btn btn-sm btn-primary back" href="#" role="button">Rejoindre</a>
-                    {% endif %}
-                    {% if not loop.last %}
-                        <br><br>     
-                    {% endif %}
-                {% endfor %}
-                </p>
-            </div>
+        <div class="col-md-6 home1">
+            <h3>Il manque des élèves :</h3><br><br> 
+            {% set classe = '' %}
+            {% for course in courses %}
+                {% if classe != course.classe %}
+                    {% set classe = course.classe %}
+                    <h2>{{ classe }}</h2>
+                {% endif %}
+                {% if course.prof != NULL %}
+                    <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+            </a>
+                {% else %}
+                    <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+            </a>
+                {% endif %}
+                <br>
+            {% endfor %}
+            </p>
         </div>
     </div>
 {% endblock %}

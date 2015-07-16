@@ -1,10 +1,15 @@
-{% block body %}
+{% extends '::base.html.twig' %}
 
+{% block body %}
+<div class="col-md-6">
+	<a class="btn btn-lg btn-primary" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
+</div>
+<div class="col-md-12 text-center">
 {% if error is defined %}
-        <div class="alert alert-danger">{{ error }}</div>
-    {% endif %}
-    {% if success is defined %}
-        <div class="alert alert-success">{{ success }}</div>
-    {% endif %}
+	<div class="alert alert-danger"><p>{{ error }}</p></div>
+{% endif %}
+{% if success is defined %}
+    <div class="alert alert-success"><p>{{ success }}</p></div>
+{% endif %}
 
 {% endblock %}
