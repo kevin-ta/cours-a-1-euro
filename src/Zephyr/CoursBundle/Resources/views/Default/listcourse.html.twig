@@ -32,7 +32,7 @@
                 {% endif %}
                 {% if course.prof != NULL %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
-                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
             </a>
                 {% else %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
