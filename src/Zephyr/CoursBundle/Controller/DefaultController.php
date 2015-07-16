@@ -114,7 +114,9 @@ class DefaultController extends Controller
                 $student->setEmail($data->email);
             }
 
-            $courses = $em->getRepository('ZephyrCoursBundle:Course')->findOneBy(array('prof' => $student));
+            $courses = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
+
+            $courses_eleve = $em->getRepository('ZephyrCoursBundle:Course')->findByStudents($student->__toString());
 
             return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array('courses' => $courses)
             );

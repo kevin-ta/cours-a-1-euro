@@ -2,11 +2,15 @@
 
 {% block body %}
 
+<h3>Voici les cours où vous êtes prof :</h3>
+<p>
 {% for course in courses %}
-    {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
-    {% if not loop.last %}
-        <br><br>     
-    {% endif %}
+    Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
+        <br>
 {% endfor %}
+</p>
+
+<h3>Voici les cours où vous êtes élèves :</h3>
+
 
 {% endblock body %}

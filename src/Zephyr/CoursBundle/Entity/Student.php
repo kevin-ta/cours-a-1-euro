@@ -39,7 +39,8 @@ class Student
     private $email;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", inversedBy="students")
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $courses;
 
