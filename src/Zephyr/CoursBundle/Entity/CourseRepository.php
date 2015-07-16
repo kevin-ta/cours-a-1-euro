@@ -12,5 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class CourseRepository extends EntityRepository
 {
-
+	public function findAllOrdered()
+    {
+        $qb = $this->createQueryBuilder('course')
+            ->addOrderBy('course.classe', 'ASC');
+        $query = $qb->getQuery();
+        //Debug
+        //var_dump($query->getDQL());die;
+        return $query->execute();
+    }
 }

@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-md btn-primary" href="{{ path('zephyr_cours_admin') }}" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Retour</a></br></br></br>
+    <div class="list-group">
+        <div class="list-group-item">
+            <p>Cours n°{{ course.id }} : {{ course.subject }} {{ course.unit }} avec {{ course.prof }}</p>
+            Elèves :
+        </div>
+    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="btn-group btn-group-justified" style="margin-bottom: 15px">
+        <a class="btn btn-danger">
+            <i class="glyphicon glyphicon-remove"></i> Supprimer le cours
+        </a>
+    </div>
+    {% endif %}
+{% endblock %}

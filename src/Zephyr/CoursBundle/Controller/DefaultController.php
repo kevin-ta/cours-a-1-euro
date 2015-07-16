@@ -61,6 +61,7 @@ class DefaultController extends Controller
             {
                 $course->setProf($student);
                 $em->persist($course);
+                //$this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->tri();
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -71,6 +72,7 @@ class DefaultController extends Controller
             {
                 $course->addStudent($student);
                 $em->persist($course);
+                //$this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->tri();
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -124,10 +126,25 @@ class DefaultController extends Controller
     public function listcourseAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAll();
+        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAllOrdered();
+        return $this->render('ZephyrCoursBundle:Default:listcourse.html.twig', array('courses' => $courses, 
+            ));
+    }
 
-        return $this->render('ZephyrCoursBundle:Default:listcourse.html.twig', array('courses' => $courses)
+    public function adminAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $courses = $em->getRepository('ZephyrCoursBundle:Course')->findAllOrdered();
+
+        return $this->render('ZephyrCoursBundle:Default:admin.html.twig', array('courses' => $courses)
             );
+    }
+
+    public function showAction(Course $course)
+    {
+        return $this->render('ZephyrCoursBundle:Default:show.html.twig', array(
+            'course' => $course
+            ));
     }
 
 	public function searchAction($query)

@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <p>Il y a au total : {{ courses|length }} cours.</p>
+    {% set classe = '' %}
+    {% for course in courses %}
+        {% if classe != course.classe %}
+            {% set classe = course.classe %}
+            <h2>{{ classe }}</h2>
+        {% endif %}
+        {% if course.prof == null %}
+            <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+            </a>
+        {% else %}
+            <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
+                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
+            </a>
+        {% endif %}
+        <br>
+    {% endfor %}
+{% endblock %}

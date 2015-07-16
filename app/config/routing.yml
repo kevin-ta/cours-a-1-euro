@@ -2,6 +2,11 @@ zephyr_cours:
     resource: "@ZephyrCoursBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+login:
+    path:     /login
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: '::login.html.twig'
+
+login_check:
+    path: /login_check
