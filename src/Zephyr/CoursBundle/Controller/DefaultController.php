@@ -57,6 +57,13 @@ class DefaultController extends Controller
                     'error' => 'Le formulaire est mal rempli.'
                 ));
 
+            if (strcmp($form->get('date')->getData()->format('Y/m/d h:i'), date('Y/m/d h:i')) < 0)
+            {
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => "La date indiquée est inférieure à la date d'aujourd'hui."
+                ));
+            }
+
             if ($this->getRequest()->request->get('submit') == 'prof')
             {
                 $course->setProf($student);

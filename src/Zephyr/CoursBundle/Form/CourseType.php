@@ -29,7 +29,7 @@ class CourseType extends AbstractType
             ->add('date', 'collot_datetime', array( 'pickerOptions' => array(
             	'format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 1,
-                'startDate' => date('01/07/2015 00:00'), //example
+                'startDate' => date('d/m/Y 00:00'), //example
                 'endDate' => date('01/07/2016 00:00'), //example
                 'daysOfWeekDisabled' => [], //example
                 'autoclose' => false,
@@ -37,7 +37,7 @@ class CourseType extends AbstractType
                 'minView' => 'hour',
                 'maxView' => 'year',
                 'todayBtn' => false,
-                'todayHighlight' => false,
+                'todayHighlight' => true,
                 'keyboardNavigation' => true,
                 'language' => 'fr',
                 'forceParse' => false,

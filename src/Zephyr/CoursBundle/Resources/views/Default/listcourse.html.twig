@@ -7,20 +7,19 @@
         <!--step 1 status -->
         <div class="col-md-6">
             <h3>Nous recherchons un prof :</h3><br><br>
-            {% set classe = '' %}
+            {% set classe2 = '' %}
             {% for course in courses %}
-            {% if classe != course.classe %}
-                {% set classe = course.classe %}
-                <h2>{{ classe }}</h2>
-            {% endif %}
+                {% if classe2 != course.classe %}
+                    {% set classe = course.classe %}
+                    <h2>{{ classe2 }}</h2>
+                {% endif %}
                 {% if course.prof == NULL %}
                     <a href="{{ path('zephyr_cours_addprof', {id:course.id}) }}" data-id="{{ course.id }}">
-                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
-            </a>
+                        Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+                    </a>
                 {% endif %}
                 <br>
             {% endfor %}
-            </p>
         </div>
         <div class="col-md-6">
             <h3>Il manque des élèves :</h3><br><br> 
@@ -32,16 +31,15 @@
                 {% endif %}
                 {% if course.prof != NULL %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
-                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
-            </a>
+                        Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
+                    </a>
                 {% else %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
-                Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
-            </a>
+                        Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+                    </a>
                 {% endif %}
                 <br>
             {% endfor %}
-            </p>
         </div>
         <div class="col-md-12">
             <br><br>
