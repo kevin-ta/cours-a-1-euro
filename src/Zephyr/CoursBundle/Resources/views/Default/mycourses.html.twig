@@ -4,14 +4,14 @@
 
 <h3>Voici les cours où vous êtes prof :</h3>
 <p>
-{% for course in courses %}
+{% for course in prof %}
     Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
         <br>
 {% endfor %}
 </p>
-<h3>Voici les cours où vous êtes élèves :</h3>
-{% for course in eleve %}
-    Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
+<h3>Voici les cours où vous êtes élève :</h3>
+{% for course2 in eleve %}
+    Cours n°{{ course2.id }} : {{ course2.unit }} le {{ course2.date|date("d/m/Y à h:i") }}
         <br>
 {% endfor %}
 

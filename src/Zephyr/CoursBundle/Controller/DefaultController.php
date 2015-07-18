@@ -133,9 +133,11 @@ class DefaultController extends Controller
             }
 
             $prof = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
+            $eleve = $student->getCourses();
 
             return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array(
-                'prof' => $prof
+                'prof' => $prof,
+                'eleve' => $eleve
                 ));
         }
 
