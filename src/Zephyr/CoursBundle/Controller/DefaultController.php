@@ -57,6 +57,19 @@ class DefaultController extends Controller
                     'error' => 'Le formulaire est mal rempli.'
                 ));
 
+            $course_exist = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findBy(array(
+                'subject' => $form->get('subject')->getData()->__toString(),
+                'unit' => $form->get('unit')->getData()->__toString(),
+                'date' => $form->get('date')->getData()
+                ));
+
+            if($course_exist != null)
+            {
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Ce cours existe déjà."
+                ));
+            }
+
             if (strcmp($form->get('date')->getData()->format('Y/m/d h:i'), date('Y/m/d h:i')) < 0)
             {
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
