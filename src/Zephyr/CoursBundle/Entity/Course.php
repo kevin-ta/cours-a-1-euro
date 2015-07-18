@@ -42,7 +42,7 @@ class Course
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="courses")
+     * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Student", inversedBy="courses", cascade={"persist"})
      * @ORM\JoinTable(name="course_student")
      */
     private $students;

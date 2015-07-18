@@ -54,7 +54,7 @@ class DefaultController extends Controller
 
             if(! $form->isValid())
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'error' => 'Formulaire mal rempli.'
+                    'error' => 'Le formulaire est mal rempli.'
                 ));
 
             if ($this->getRequest()->request->get('submit') == 'prof')
@@ -64,7 +64,7 @@ class DefaultController extends Controller
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                'success' => 'Cours enregistré.'
+                'success' => 'Votre demande de cours a été enregistrée.'
                 ));
             }
             elseif ($this->getRequest()->request->get('submit') == 'eleve')
@@ -74,7 +74,7 @@ class DefaultController extends Controller
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'success' => 'Cours enregistré.'
+                    'success' => 'Votre demande de cours a été enregistrée.'
                 ));
             }
         }
@@ -100,7 +100,7 @@ class DefaultController extends Controller
                 }
                 catch(ApiErrorException $e){
                     return array(
-                        'error' => 'Code cantine incorrect.'
+                        'error' => 'Le code cantine est incorrect.'
                     );
                 }
 
@@ -148,6 +148,100 @@ class DefaultController extends Controller
         return $this->render('ZephyrCoursBundle:Default:show.html.twig', array(
             'course' => $course
             ));
+    }
+
+    public function addstudentAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $course = $em->getRepository('ZephyrCoursBundle:Course')->find($id);
+
+        if($request->isMethod('POST')){
+            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+
+            if($student === null){
+                try{
+                    $fairpay = new FairPay();
+                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    $data = $fairpay->getStudent($request->request->get('id'));
+                }
+                catch(ApiErrorException $e){
+                    return array(
+                        'error' => 'Le code cantine est incorrect.'
+                    );
+                }
+
+                $student = new Student();
+                $student->setId($data->id);
+                $student->setClass($data->class);
+                $student->setFirstName($data->first_name);
+                $student->setLastName($data->last_name);
+                $student->setEmail($data->email);
+            }
+
+            if($student->__toString() == $course->getProf()){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => 'Vous ne pouvez pas être élève de votre propre cours.'
+                ));
+            }
+
+            $course->addStudent($student);
+            $em->persist($course);
+            $em->flush();
+
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'success' => "Vous avez été ajouté au cours en tant qu'élève"
+                ));
+        }
+
+        return $this->render('ZephyrCoursBundle:Default:addstudent.html.twig', array('course' => $course));
+    }
+
+    public function addprofAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $course = $em->getRepository('ZephyrCoursBundle:Course')->find($id);
+
+        if($request->isMethod('POST')){
+            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+
+            if($student === null){
+                try{
+                    $fairpay = new FairPay();
+                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    $data = $fairpay->getStudent($request->request->get('id'));
+                }
+                catch(ApiErrorException $e){
+                    return array(
+                        'error' => 'Le code cantine est incorrect.'
+                    );
+                }
+
+                $student = new Student();
+                $student->setId($data->id);
+                $student->setClass($data->class);
+                $student->setFirstName($data->first_name);
+                $student->setLastName($data->last_name);
+                $student->setEmail($data->email);
+            }
+
+            if($student->__toString() == $course->getProf()){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => 'Vous ne pouvez pas être le prof du cours si vous êtes déjà un élève.'
+                ));
+            }
+
+            $course->setProf($student);
+            $em->persist($course);
+            $em->flush();
+
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'success' => "Vous avez été ajouté au cours en tant que prof."
+                ));
+        }
+
+        return $this->render('ZephyrCoursBundle:Default:addprof.html.twig', array('course' => $course));
     }
 
 	public function searchAction($query)

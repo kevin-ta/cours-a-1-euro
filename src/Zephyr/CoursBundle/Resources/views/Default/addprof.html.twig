@@ -1,0 +1,22 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<div class="jumbotron col-md-12 home2">
+    <a class="btn btn-lg btn-primary" href="{{ path('zephyr_cours_listcourse') }}" role="button">Retour</a></br></br></br>
+    <h3 id="name">Qui êtes-vous ?</h3>
+    <form enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
+            <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+        </div>
+        <div id="form" style="display: none">
+            <p>Voulez-vous vraiment prendre en charge le cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} ?</p>
+            <center>
+                <button id="send" class="btn btn-primary" style="margin-top: 15px;">
+                    <i class="glyphicon glyphicon-ok"></i> Oui, allez-y
+                </button>
+            </center>
+        </div>
+    </form>
+</div>
+{% endblock body %}
