@@ -5,7 +5,13 @@
     <div class="list-group">
         <div class="list-group-item">
             <p>Cours n°{{ course.id }} : {{ course.subject }} {{ course.unit }} avec {{ course.prof }}</p>
-            Elèves :
+            Elèves : 
+            {% for student in students %}
+                {{student}} {{student.id}}
+                {% if not loop.last %}
+                    ,
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     {% if is_granted('ROLE_ADMIN') %}

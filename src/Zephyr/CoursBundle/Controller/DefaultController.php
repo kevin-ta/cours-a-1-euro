@@ -112,13 +112,10 @@ class DefaultController extends Controller
                 $student->setEmail($data->email);
             }
 
-            $courses = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
-
-            $eleve = $student->getCourses();
+            $prof = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
 
             return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array(
-                'courses' => $courses,
-                'eleve' => $eleve
+                'prof' => $prof
                 ));
         }
 
@@ -145,7 +142,9 @@ class DefaultController extends Controller
 
     public function showAction(Course $course)
     {
+        $students = $course->getStudents();
         return $this->render('ZephyrCoursBundle:Default:show.html.twig', array(
+            'students' => $students,
             'course' => $course
             ));
     }
