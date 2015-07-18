@@ -10,7 +10,7 @@
             {% set classe2 = '' %}
             {% for course in courses %}
                 {% if classe2 != course.classe %}
-                    {% set classe = course.classe %}
+                    {% set classe2 = course.classe %}
                     <h2>{{ classe2 }}</h2>
                 {% endif %}
                 {% if course.prof == NULL %}
