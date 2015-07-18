@@ -162,9 +162,45 @@ class DefaultController extends Controller
             );
     }
 
-    public function showAction(Course $course)
+    public function showAction(Course $course, Request $request)
     {
         $students = $course->getStudents();
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->isMethod('POST'))
+        {
+            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+
+            if ($this->getRequest()->request->get('submit') == 'delprof')
+            {
+                $course->setProf(NULL);
+            }
+
+            if ($this->getRequest()->request->get('submit') == 'deleleve')
+            {
+                try{
+                    $course->removeStudent($student);
+                } 
+                catch(\Exception $e){
+                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
+                        'error' => "Vous avez oublié de renseigner le nom de l'élève"
+                    ));
+                }
+            }
+
+            if ($this->getRequest()->request->get('submit') == 'suppr')
+            {
+                $em->remove($course);
+            }
+
+            $em->persist($course);
+            $em->flush();
+
+            return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
+                'success' => 'Opération effectuée avec succès.'
+                ));
+        }
+
         return $this->render('ZephyrCoursBundle:Default:show.html.twig', array(
             'students' => $students,
             'course' => $course

@@ -4,7 +4,11 @@
     <a class="btn btn-md btn-primary" href="{{ path('zephyr_cours_admin') }}" role="button"><i class="glyphicon glyphicon-arrow-left"></i> Retour</a></br></br></br>
     <div class="list-group">
         <div class="list-group-item">
-            <p>Cours n°{{ course.id }} : {{ course.subject }} {{ course.unit }} avec {{ course.prof }}</p>
+            <h4>Cours n°{{ course.id }} :</h4> 
+            <p>Matière : {{ course.subject }}<br>
+            Unité : {{ course.unit }}<br>
+            Date : Le {{ course.date|date("d/m/Y à h:i") }}<br>
+            Professeur : {{ course.prof }}</p>
             Elèves : 
             {% for student in students %}
                 {{student}} {{student.id}}
@@ -15,10 +19,40 @@
         </div>
     </div>
     {% if is_granted('ROLE_ADMIN') %}
-    <div class="btn-group btn-group-justified" style="margin-bottom: 15px">
-        <a class="btn btn-danger">
-            <i class="glyphicon glyphicon-remove"></i> Supprimer le cours
-        </a>
-    </div>
+        <form enctype="multipart/form-data" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button name="submit" value="addprof" id="send" class="btn btn-primary form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-education"></i> Ajouter un professeur
+                        </button><br><br>
+                        <button name="submit" value="addeleve" id="send" class="btn btn-primary form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-plus"></i> Ajouter un élève
+                        </button><br><br>
+                        <button name="submit" value="validate" id="send" class="btn btn-success form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-check"></i> Valider ce cours (verrouiller et archiver)
+                        </button><br><br>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <button name="submit" value="delprof" id="send" class="btn btn-danger form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-remove"></i> Supprimer le prof
+                        </button><br><br>
+                        <p id="name"></p>
+                        <div class="form-group">
+                            <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine pour le supprimer du cours" style="margin-bottom: 15px">
+                            <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+                        </div>
+                        <button name="submit" value="deleleve" id="send" class="btn btn-danger form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-minus"></i> Supprimer un élève
+                        </button><br><br>
+                        <button name="submit" value="suppr" id="send" class="btn btn-danger form-control" style="margin-top: 15px;">
+                            <i class="glyphicon glyphicon-trash"></i> Supprimer le cours
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
     {% endif %}
 {% endblock %}
