@@ -15,6 +15,23 @@
             <center><a class="btn btn-lg btn-primary btn2" href="#" role="button">M'inscrire pour un cours</a></center>
         </div>
 
+        <div class="jumbotron col-md-12 alert1" style="display:none">
+            <h2>Avez-vous pensé à consulter la liste des cours existant ?</h2>
+            <p>En cas de doublon, vous risquez de voir votre demande supprimée.</p><br>
+            <center>
+                <a class="btn btn-lg btn-danger" href="{{ path('zephyr_cours_listcourse') }}" role="button">Me montrer la liste des cours</a><br><br>
+                <a class="btn btn-lg btn-primary btnalert1" href="#" role="button">Je n'ai pas trouvé mon bonheur</a>
+            </center>
+        </div>
+
+        <div class="jumbotron col-md-12 alert2" style="display:none">
+            <h2>Avez-vous pensé à consulter la liste des cours existant ?</h2>
+            <p>En cas de doublon, vous risquez de voir votre demande supprimée.</p><br>
+            <center>
+                <a class="btn btn-lg btn-danger" href="{{ path('zephyr_cours_listcourse') }}" role="button">Me montrer la liste des cours</a><br><br>
+                <a class="btn btn-lg btn-primary btnalert2" href="#" role="button">Je n'ai pas trouvé mon bonheur</a></center>
+        </div>
+
         <div class="jumbotron col-md-12 home2" style="display:none">
             <a class="btn btn-lg btn-primary" href="{{ path('zephyr_cours_homepage') }}" role="button">Retour</a></br></br></br>
             <h3 id="name">Qui êtes-vous ?</h3>
