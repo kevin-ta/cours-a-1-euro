@@ -39,6 +39,11 @@ class Student
     private $email;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $password;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
      **/
     private $courses;
@@ -164,6 +169,29 @@ class Student
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Student
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword()
+    {
+        return $this->password;
     }
 
     /**

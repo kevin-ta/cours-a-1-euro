@@ -32,8 +32,8 @@ class DefaultController extends Controller
             if($student === null){
                 try{
                     $fairpay = new FairPay();
-                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
-                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    $fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    $fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
@@ -48,6 +48,14 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
+                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+            }
+            else
+            {
+                if($student->getPassword() !== $request->request->get('password'))
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Le mot de passe est incorrect.'
+                    ));
             }
 
             $form->handleRequest($request);
@@ -252,7 +260,7 @@ class DefaultController extends Controller
                     'error' => "Vous faites déjà parti de ce cours."
                 ));
             }
-            
+
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'success' => "Vous avez été ajouté au cours en tant qu'élève."
                 ));
