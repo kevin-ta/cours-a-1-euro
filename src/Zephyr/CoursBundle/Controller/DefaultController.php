@@ -242,12 +242,20 @@ class DefaultController extends Controller
                 ));
             }
 
-            $course->addStudent($student);
+            try{
+                $course->addStudent($student);
+            } 
+            catch(\Exception $e){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => "Vous faites déjà parti de ce cours."
+                ));
+            }
+
             $em->persist($course);
             $em->flush();
 
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'success' => "Vous avez été ajouté au cours en tant qu'élève"
+                    'success' => "Vous avez été ajouté au cours en tant qu'élève."
                 ));
         }
 
