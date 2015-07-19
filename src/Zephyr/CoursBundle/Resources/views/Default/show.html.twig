@@ -20,6 +20,12 @@
     </div>
     {% if is_granted('ROLE_ADMIN') %}
         <form enctype="multipart/form-data" method="post">
+            <p id="name">"Un seul champ de recherche pour les gouverner tous." <i>- Solix</i>
+            </p>
+            <div class="form-group">
+                <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine pour toute modification d'un étudiant en tant qu'élève" style="margin-bottom: 15px">
+                <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -39,11 +45,6 @@
                         <button name="submit" value="delprof" id="send" class="btn btn-danger form-control" style="margin-top: 15px;">
                             <i class="glyphicon glyphicon-remove"></i> Supprimer le prof
                         </button><br><br>
-                        <p id="name"></p>
-                        <div class="form-group">
-                            <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine pour le supprimer du cours" style="margin-bottom: 15px">
-                            <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
-                        </div>
                         <button name="submit" value="deleleve" id="send" class="btn btn-danger form-control" style="margin-top: 15px;">
                             <i class="glyphicon glyphicon-minus"></i> Supprimer un élève
                         </button><br><br>
