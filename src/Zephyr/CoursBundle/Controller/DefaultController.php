@@ -244,16 +244,15 @@ class DefaultController extends Controller
 
             try{
                 $course->addStudent($student);
+                $em->persist($course);
+                $em->flush();
             } 
             catch(\Exception $e){
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => "Vous faites déjà parti de ce cours."
                 ));
             }
-
-            $em->persist($course);
-            $em->flush();
-
+            
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'success' => "Vous avez été ajouté au cours en tant qu'élève."
                 ));
@@ -293,9 +292,17 @@ class DefaultController extends Controller
 
             if($student->__toString() == $course->getProf()){
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'error' => 'Vous ne pouvez pas être le prof du cours si vous êtes déjà un élève.'
+                    'error' => 'Vous êtes déjà le professeur de ce cours.'
                 ));
             }
+
+            if($course->getProf() != NULL ){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => 'Il existe déjà un professeur.'
+                ));
+            }
+
+            //Manque la sécurité si on est déjà un élève du cours.
 
             $course->setProf($student);
             $em->persist($course);
