@@ -37,9 +37,9 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return array(
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Code cantine incorrect.'
-                    );
+                    ));
                 }
 
                 $student = new Student();
@@ -128,9 +128,9 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return array(
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Code cantine incorrect.'
-                    );
+                    ));
                 }
 
                 $student = new Student();
@@ -195,9 +195,9 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return array(
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Code cantine incorrect.'
-                    );
+                    ));
                 }
 
                 $student = new Student();
@@ -289,9 +289,9 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return array(
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Code cantine incorrect.'
-                    );
+                    ));
                 }
 
                 $student = new Student();
@@ -351,9 +351,9 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return array(
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Code cantine incorrect.'
-                    );
+                    ));
                 }
 
                 $student = new Student();
