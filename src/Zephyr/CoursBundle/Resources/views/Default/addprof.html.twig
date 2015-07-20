@@ -10,6 +10,8 @@
             <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
         </div>
         <div id="form" style="display: none">
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" class="form-control">
             <p>Voulez-vous vraiment prendre en charge le cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} ?</p>
             <center>
                 <button id="send" class="btn btn-primary" style="margin-top: 15px;">

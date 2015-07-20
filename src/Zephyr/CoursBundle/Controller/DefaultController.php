@@ -4,6 +4,7 @@ namespace Zephyr\CoursBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Ferus\FairPayApi\FairPay;
+use Ferus\FairPayApi\Exception\ApiErrorException;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,12 +29,11 @@ class DefaultController extends Controller
         //Si on a soumis le formulaire
         if($request->isMethod('POST')){
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-
             if($student === null){
                 try{
                     $fairpay = new FairPay();
-                    $fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
-                    $fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
@@ -89,6 +89,7 @@ class DefaultController extends Controller
             {
                 $course->setProf($student);
                 $em->persist($course);
+                $em->persist($student);
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -99,6 +100,7 @@ class DefaultController extends Controller
             {
                 $course->addStudent($student);
                 $em->persist($course);
+                $em->persist($student);
                 $em->flush();
 
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
@@ -118,7 +120,6 @@ class DefaultController extends Controller
 
         if($request->isMethod('POST')){
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-
             if($student === null){
                 try{
                     $fairpay = new FairPay();
@@ -128,7 +129,7 @@ class DefaultController extends Controller
                 }
                 catch(ApiErrorException $e){
                     return array(
-                        'error' => 'Le code cantine est incorrect.'
+                        'error' => 'Code cantine incorrect.'
                     );
                 }
 
@@ -138,6 +139,14 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
+                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+            }
+            else
+            {
+                if($student->getPassword() !== $request->request->get('password'))
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Le mot de passe est incorrect.'
+                    ));
             }
 
             $prof = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
@@ -178,6 +187,27 @@ class DefaultController extends Controller
         if($request->isMethod('POST'))
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+            if($student === null){
+                try{
+                    $fairpay = new FairPay();
+                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                    $data = $fairpay->getStudent($request->request->get('id'));
+                }
+                catch(ApiErrorException $e){
+                    return array(
+                        'error' => 'Code cantine incorrect.'
+                    );
+                }
+
+                $student = new Student();
+                $student->setId($data->id);
+                $student->setClass($data->class);
+                $student->setFirstName($data->first_name);
+                $student->setLastName($data->last_name);
+                $student->setEmail($data->email);
+                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+            }
 
             if ($this->getRequest()->request->get('submit') == 'delprof')
             {
@@ -221,8 +251,7 @@ class DefaultController extends Controller
         $course = $em->getRepository('ZephyrCoursBundle:Course')->find($id);
 
         if($request->isMethod('POST')){
-            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-
+           $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
             if($student === null){
                 try{
                     $fairpay = new FairPay();
@@ -232,7 +261,7 @@ class DefaultController extends Controller
                 }
                 catch(ApiErrorException $e){
                     return array(
-                        'error' => 'Le code cantine est incorrect.'
+                        'error' => 'Code cantine incorrect.'
                     );
                 }
 
@@ -242,6 +271,14 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
+                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+            }
+            else
+            {
+                if($student->getPassword() !== $request->request->get('password'))
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Le mot de passe est incorrect.'
+                    ));
             }
 
             if($student->__toString() == $course->getProf()){
@@ -252,6 +289,7 @@ class DefaultController extends Controller
 
             try{
                 $course->addStudent($student);
+                $em->persist($student);
                 $em->persist($course);
                 $em->flush();
             } 
@@ -276,7 +314,6 @@ class DefaultController extends Controller
 
         if($request->isMethod('POST')){
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-
             if($student === null){
                 try{
                     $fairpay = new FairPay();
@@ -286,7 +323,7 @@ class DefaultController extends Controller
                 }
                 catch(ApiErrorException $e){
                     return array(
-                        'error' => 'Le code cantine est incorrect.'
+                        'error' => 'Code cantine incorrect.'
                     );
                 }
 
@@ -296,6 +333,14 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
+                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+            }
+            else
+            {
+                if($student->getPassword() !== $request->request->get('password'))
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Le mot de passe est incorrect.'
+                    ));
             }
 
             if($student->__toString() == $course->getProf()){
@@ -314,6 +359,7 @@ class DefaultController extends Controller
 
             $course->setProf($student);
             $em->persist($course);
+            $em->persist($student);
             $em->flush();
 
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(

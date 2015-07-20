@@ -14,6 +14,8 @@
                         <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
                     </div>
                     <div id="form" style="display: none">
+                        <label for="password">Mot de passe :</label>
+                        <input type="password" id="password" name="password" class="form-control">
                         <div class="form-group">
                             {{ form_label(form.classe) }}
                             {{ form_widget(form.classe, {'attr': {'class': 'form-control'}}) }}
