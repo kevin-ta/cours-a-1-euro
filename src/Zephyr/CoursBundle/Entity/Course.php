@@ -53,6 +53,11 @@ class Course
     private $prof;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $valid;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -204,5 +209,28 @@ class Course
     public function getProf()
     {
         return $this->prof;
+    }
+
+    /**
+     * Set valid
+     *
+     * @param boolean $valid
+     * @return Course
+     */
+    public function setValid($valid)
+    {
+        $this->valid = $valid;
+
+        return $this;
+    }
+
+    /**
+     * Get valid
+     *
+     * @return boolean 
+     */
+    public function getValid()
+    {
+        return $this->valid;
     }
 }

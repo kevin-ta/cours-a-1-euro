@@ -255,6 +255,17 @@ class DefaultController extends Controller
                 }
             }
 
+            if ($this->getRequest()->request->get('submit') == 'valid')
+            {
+                $course->setValid(1);
+            }
+
+                if($course->getValid() == 1){
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Ce cours a été archivé et ne peut plus être rejoint.'
+                    ));
+                }
+
             if ($this->getRequest()->request->get('submit') == 'suppr')
             {
                 $em->remove($course);
@@ -314,6 +325,12 @@ class DefaultController extends Controller
             if($student->__toString() == $course->getProf()){
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => 'Vous ne pouvez pas être élève de votre propre cours.'
+                ));
+            }
+
+            if($course->getValid() == 1){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => 'Ce cours a été archivé et ne peut plus être rejoint.'
                 ));
             }
 
