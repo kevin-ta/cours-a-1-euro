@@ -214,7 +214,7 @@ class DefaultController extends Controller
                 $course->setProf($student);
             }
 
-            if ($this->getRequest()->request->get('submit') == 'addstudent')
+            if ($this->getRequest()->request->get('submit') == 'addeleve')
             {
                 if($student->__toString() == $course->getProf()){
                     return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
@@ -260,6 +260,7 @@ class DefaultController extends Controller
                 $em->remove($course);
             }
 
+            $em->persist($student);
             $em->persist($course);
             $em->flush();
 
