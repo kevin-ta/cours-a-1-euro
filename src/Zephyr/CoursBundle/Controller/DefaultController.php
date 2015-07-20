@@ -195,7 +195,7 @@ class DefaultController extends Controller
                     $data = $fairpay->getStudent($request->request->get('id'));
                 }
                 catch(ApiErrorException $e){
-                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
                         'error' => 'Code cantine incorrect.'
                     ));
                 }
@@ -217,7 +217,7 @@ class DefaultController extends Controller
             if ($this->getRequest()->request->get('submit') == 'addstudent')
             {
                 if($student->__toString() == $course->getProf()){
-                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
                         'error' => 'Cet élève est le professeur, il ne peut pas être un élève de son propre cours.'
                     ));
                 }
@@ -232,7 +232,7 @@ class DefaultController extends Controller
                     ));
                 } 
                 catch(\Exception $e){
-                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
                         'error' => 'Cet étudiant est déjà un élève du cours.'
                     ));
                 }
