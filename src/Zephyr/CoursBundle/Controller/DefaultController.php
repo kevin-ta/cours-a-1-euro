@@ -209,6 +209,35 @@ class DefaultController extends Controller
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
             }
 
+            if ($this->getRequest()->request->get('submit') == 'addprof')
+            {
+                $course->setProf($student);
+            }
+
+            if ($this->getRequest()->request->get('submit') == 'addstudent')
+            {
+                if($student->__toString() == $course->getProf()){
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Cet élève est le professeur, il ne peut pas être un élève de son propre cours.'
+                    ));
+                }
+
+                try{
+                    $course->addStudent($student);
+                    $em->persist($student);
+                    $em->persist($course);
+                    $em->flush();
+                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
+                        'success' => 'Opération effectuée avec succès.'
+                    ));
+                } 
+                catch(\Exception $e){
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Cet étudiant est déjà un élève du cours.'
+                    ));
+                }
+            }
+
             if ($this->getRequest()->request->get('submit') == 'delprof')
             {
                 $course->setProf(NULL);
