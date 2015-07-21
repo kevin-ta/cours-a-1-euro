@@ -189,27 +189,6 @@ class DefaultController extends Controller
         if($request->isMethod('POST'))
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-            if($student === null){
-                try{
-                    $fairpay = new FairPay();
-                    //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
-                    //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
-                    $data = $fairpay->getStudent($request->request->get('id'));
-                }
-                catch(ApiErrorException $e){
-                    return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
-                        'error' => 'Code cantine incorrect.'
-                    ));
-                }
-
-                $student = new Student();
-                $student->setId($data->id);
-                $student->setClass($data->class);
-                $student->setFirstName($data->first_name);
-                $student->setLastName($data->last_name);
-                $student->setEmail($data->email);
-                $student->setPassword(str_shuffle('fOy4c9f5dV'));
-            }
 
             if ($this->getRequest()->request->get('submit') == 'addprof')
             {
@@ -218,6 +197,28 @@ class DefaultController extends Controller
 
             if ($this->getRequest()->request->get('submit') == 'addeleve')
             {
+                if($student === null){
+                    try{
+                        $fairpay = new FairPay();
+                        //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                        //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                        $data = $fairpay->getStudent($request->request->get('id'));
+                    }
+                    catch(ApiErrorException $e){
+                        return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
+                            'error' => 'Code cantine incorrect.'
+                        ));
+                    }
+
+                    $student = new Student();
+                    $student->setId($data->id);
+                    $student->setClass($data->class);
+                    $student->setFirstName($data->first_name);
+                    $student->setLastName($data->last_name);
+                    $student->setEmail($data->email);
+                    $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                }
+
                 if($student->__toString() == $course->getProf()){
                     return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
                         'error' => 'Cet élève est le professeur, il ne peut pas être un élève de son propre cours.'
@@ -247,8 +248,31 @@ class DefaultController extends Controller
 
             if ($this->getRequest()->request->get('submit') == 'deleleve')
             {
+                if($student === null){
+                    try{
+                        $fairpay = new FairPay();
+                        //$fairpay->setCurlParam(CURLOPT_HTTPPROXYTUNNEL, true);
+                        //$fairpay->setCurlParam(CURLOPT_PROXY, "proxy.esiee.fr:3128");
+                        $data = $fairpay->getStudent($request->request->get('id'));
+                    }
+                    catch(ApiErrorException $e){
+                        return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
+                            'error' => 'Code cantine incorrect.'
+                        ));
+                    }
+
+                    $student = new Student();
+                    $student->setId($data->id);
+                    $student->setClass($data->class);
+                    $student->setFirstName($data->first_name);
+                    $student->setLastName($data->last_name);
+                    $student->setEmail($data->email);
+                    $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                }
+
                 try{
                     $course->removeStudent($student);
+                    $em->persist($student);
                 } 
                 catch(\Exception $e){
                     return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
@@ -257,23 +281,16 @@ class DefaultController extends Controller
                 }
             }
 
-            if ($this->getRequest()->request->get('submit') == 'valid')
+            if ($this->getRequest()->request->get('submit') == 'validate')
             {
                 $course->setValid(1);
             }
-
-                if($course->getValid() == 1){
-                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                        'error' => 'Ce cours a été archivé et ne peut plus être rejoint.'
-                    ));
-                }
 
             if ($this->getRequest()->request->get('submit') == 'suppr')
             {
                 $em->remove($course);
             }
 
-            $em->persist($student);
             $em->persist($course);
             $em->flush();
 
