@@ -13,7 +13,7 @@
                     {% set classe2 = course.classe %}
                     <h2>{{ classe2 }}</h2>
                 {% endif %}
-                {% if course.prof == NULL %}
+                {% if course.valid == 0 and course.prof == NULL %}
                     <a href="{{ path('zephyr_cours_addprof', {id:course.id}) }}" data-id="{{ course.id }}">
                         Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
                     </a>
@@ -29,11 +29,11 @@
                     {% set classe = course.classe %}
                     <h2>{{ classe }}</h2>
                 {% endif %}
-                {% if course.prof != NULL %}
+                {% if course.valid == 0 and course.prof != NULL %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
                         Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
                     </a>
-                {% else %}
+                {% elseif course.valid == 0 and course.prof == NULL %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">
                         Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
                     </a>
