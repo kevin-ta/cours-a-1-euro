@@ -88,6 +88,7 @@ class DefaultController extends Controller
             if ($this->getRequest()->request->get('submit') == 'prof')
             {
                 $course->setProf($student);
+                $course->setValid(0);
                 $em->persist($course);
                 $em->persist($student);
                 $em->flush();
@@ -99,6 +100,7 @@ class DefaultController extends Controller
             elseif ($this->getRequest()->request->get('submit') == 'eleve')
             {
                 $course->addStudent($student);
+                $course->setValid(0);
                 $em->persist($course);
                 $em->persist($student);
                 $em->flush();
