@@ -2,9 +2,10 @@
 <html lang="fr">
 <head>
     <title>{% block title %}Cours à 1 euro{% endblock %}</title>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="icon" type="image/vnd.microsoft.icon" href="{{ asset('favicon.ico') }}" />
+    <meta name="description" content="{% block description 'Plateforme du cours à 1 euro de Zéphyr, BDE ESIEE Paris.' %}">
 
 {% block stylesheets %}
     <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.4/paper/bootstrap.min.css" rel="stylesheet" media="screen">
