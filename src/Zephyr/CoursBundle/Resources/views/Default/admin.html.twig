@@ -7,21 +7,19 @@
             <h2>Cours en attente</h2>
             {% set classe = '' %}
             {% for course in courses %}
-                {% if course.valid == 0 %}
                     {% if classe != course.classe %}
                         {% set classe = course.classe %}
                         <h2>{{ classe }}</h2>
                     {% endif %}
-                    {% if course.prof == null %}
+                    {% if course.valid == 0 and course.prof == null %}
                         <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
                             Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
                         </a>
-                    {% else %}
+                    {% elseif course.valid == 0 and course.prof != null %}
                         <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
                             Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
                         </a>
                     {% endif %}
-                {% endif %}
                 <br>
             {% endfor %}
         </div>
@@ -29,20 +27,18 @@
             <h2>Cours validés</h2>
             {% set classe = '' %}
             {% for course in courses %}
-                {% if course.valid == 1 %}
-                    {% if classe != course.classe %}
-                        {% set classe = course.classe %}
-                        <h2>{{ classe }}</h2>
-                    {% endif %}
-                    {% if course.prof == null %}
-                        <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
-                            Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
-                        </a>
-                    {% else %}
-                        <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
-                            Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
-                        </a>
-                    {% endif %}
+                {% if classe != course.classe %}
+                    {% set classe = course.classe %}
+                    <h2>{{ classe }}</h2>
+                {% endif %}
+                {% if course.valid == 1 and course.prof == null %}
+                    <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
+                        Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - SANS PROF
+                    </a>
+                {% elseif course.valid == 1 and course.prof != null %}
+                    <a href="{{ path('zephyr_cours_show', {id:course.id}) }}" data-id="{{ course.id }}">
+                        Cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} - PROF : {{course.prof}} 
+                    </a>
                 {% endif %}
                 <br>
             {% endfor %}
