@@ -291,6 +291,11 @@ class DefaultController extends Controller
                 $em->remove($course);
             }
 
+            if ($this->getRequest()->request->get('submit') == 'note')
+            {
+                $course->setNote($_POST['note']);
+            }
+
             $em->persist($course);
             $em->flush();
 

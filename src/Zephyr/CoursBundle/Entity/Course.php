@@ -58,6 +58,11 @@ class Course
     private $valid;
 
     /**
+     * @ORM\Column(type="string", length=1024, nullable=true)
+     */
+    private $note;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -232,5 +237,28 @@ class Course
     public function getValid()
     {
         return $this->valid;
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     * @return Course
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string 
+     */
+    public function getNote()
+    {
+        return $this->note;
     }
 }

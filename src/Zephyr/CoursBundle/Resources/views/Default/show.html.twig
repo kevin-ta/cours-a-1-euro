@@ -60,6 +60,15 @@
                         </button>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="list-group-item">
+                        <textarea name="note"class="form-control" rows="5">{{ course.note }}</textarea>
+                    </div>
+                    <button name="submit" value="note" id="send" class="btn btn-success form-control" style="margin-top: 15px;">
+                        <i class="glyphicon glyphicon-check"></i> Modifier la note
+                    </button>
+                    <br><br>
+                </div>
             </div>
         </form>
     {% endif %}
