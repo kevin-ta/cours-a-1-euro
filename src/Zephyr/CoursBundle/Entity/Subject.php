@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="subject")
- * @ORM\Entity(repositoryClass="Zephyr\CoursBundle\Entity\SubjectRepository")
  */
 class Subject
 {
