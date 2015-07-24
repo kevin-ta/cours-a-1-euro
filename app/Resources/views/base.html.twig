@@ -14,7 +14,7 @@
 </head>
 
 <body data-get-student-api="{{ path('api_get_student', {query:'-query-'}) }}">
-    {% block navbar %}
+{% block navbar %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -29,16 +29,16 @@
             </div>
         </div>
     </nav>
-    {% endblock %}
+{% endblock %}
     <div class="container">
         {% block body %}{% endblock %}
     </div>
 
-    {% block javascripts %}
-        <script src="{{ asset('//code.jquery.com/jquery-2.1.4.min.js') }}"></script>
-        <script src="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/form.js') }}"></script>
-        <script src="{{ asset('js/search-input.js') }}"></script>
-    {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('//code.jquery.com/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/form.js') }}"></script>
+    <script src="{{ asset('js/search-input.js') }}"></script>
+{% endblock %}
 </body>
 </html>
