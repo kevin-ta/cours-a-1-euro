@@ -49,6 +49,23 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+                ->setBody(
+                    $this->renderView(
+                        'ZephyrCoursBundle:Email:email.html.twig',
+                        array(
+                            'name' => $student->getFirstName(),
+                            'code' => $student->getPassword(),
+                            'id' => $student->getId(),
+                        )
+                    )
+                )
+                ;
+                $this->get('mailer')->send($message);
             }
             else
             {
@@ -142,6 +159,23 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+                ->setBody(
+                    $this->renderView(
+                        'ZephyrCoursBundle:Email:email.html.twig',
+                        array(
+                            'name' => $student->getFirstName(),
+                            'code' => $student->getPassword(),
+                            'id' => $student->getId(),
+                        )
+                    )
+                )
+                ;
+                $this->get('mailer')->send($message);
             }
             else
             {
@@ -337,6 +371,23 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+                ->setBody(
+                    $this->renderView(
+                        'ZephyrCoursBundle:Email:email.html.twig',
+                        array(
+                            'name' => $student->getFirstName(),
+                            'code' => $student->getPassword(),
+                            'id' => $student->getId(),
+                        )
+                    )
+                )
+                ;
+                $this->get('mailer')->send($message);
             }
             else
             {
@@ -405,6 +456,23 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+                ->setBody(
+                    $this->renderView(
+                        'ZephyrCoursBundle:Email:email.html.twig',
+                        array(
+                            'name' => $student->getFirstName(),
+                            'code' => $student->getPassword(),
+                            'id' => $student->getId(),
+                        )
+                    )
+                )
+                ;
+                $this->get('mailer')->send($message);
             }
             else
             {
