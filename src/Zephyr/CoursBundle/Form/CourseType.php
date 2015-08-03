@@ -11,21 +11,25 @@ class CourseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('classe', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Classe',
-                  'property' => 'name',
-                  'multiple' => false,
-                  'expanded' => false))
-            ->add('subject', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Subject',
-                  'property' => 'name',
-                  'multiple' => false,
-                  'expanded' => false))
-            ->add('unit', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Unit',
-                  'property' => 'name',
-                  'multiple' => false,
-                  'expanded' => false))
+            //->add('classe', 'entity', array(
+            //      'class'    => 'ZephyrCoursBundle:Classe',
+            //      'property' => 'name',
+            //      'multiple' => false,
+            //      'expanded' => false))
+            //->add('subject', 'entity', array(
+            //      'class'    => 'ZephyrCoursBundle:Subject',
+            //      'property' => 'name',
+            //      'multiple' => false,
+            //      'expanded' => false))
+            ->add('unit', 'unit_selector', array(
+                  'trim'        => true,
+                  'max_length'  => '8',
+                  'label'       => 'Unité'))
+            //->add('unit', 'entity', array(
+            //      'class'    => 'ZephyrCoursBundle:Unit',
+            //      'property' => 'name',
+            //      'multiple' => false,
+            //      'expanded' => false))
             ->add('date', 'collot_datetime', array( 'pickerOptions' => array(
             	'format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 1,
@@ -55,7 +59,7 @@ class CourseType extends AbstractType
 	{
 	    $resolver->setDefaults(array(
 	        'data_class' => 'Zephyr\CoursBundle\Entity\Course',
-          'csrf_protection' => false,
+            'csrf_protection' => false,
 	    ));
 	}
 

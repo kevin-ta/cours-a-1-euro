@@ -24,7 +24,7 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         //Création du form
         $course = new Course();
-        $form = $this->createForm('course', $course);
+        $form = $this->createForm(new CourseType($em), $course);
 
         //Si on a soumis le formulaire
         if($request->isMethod('POST')){
@@ -79,11 +79,10 @@ class DefaultController extends Controller
 
             if(! $form->isValid())
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'error' => 'Le formulaire est mal rempli.'
+                    'error' => 'Le formulaire est mal rempli. Avez-vous respecté la typo ?'
                 ));
 
             $course_exist = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findBy(array(
-                'subject' => $form->get('subject')->getData()->__toString(),
                 'unit' => $form->get('unit')->getData()->__toString(),
                 'date' => $form->get('date')->getData()
                 ));

@@ -14,10 +14,6 @@ zephyr_cours_listcourse:
     path:   /listcourse
     defaults: { _controller: ZephyrCoursBundle:Default:listcourse }
 
-zephyr_cours_newcourse:
-    path:   /newcourse
-    defaults: { _controller: ZephyrCoursBundle:Default:newcourse }
-
 zephyr_cours_admin:
     path:     /admin
     defaults: { _controller: ZephyrCoursBundle:Default:admin }
