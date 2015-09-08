@@ -11,11 +11,11 @@ class CourseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('classe', 'entity', array(
-            //      'class'    => 'ZephyrCoursBundle:Classe',
-            //      'property' => 'name',
-            //      'multiple' => false,
-            //      'expanded' => false))
+            ->add('classe', 'entity', array(
+                  'class'    => 'ZephyrCoursBundle:Classe',
+                  'property' => 'name',
+                  'multiple' => false,
+                  'expanded' => false))
             //->add('subject', 'entity', array(
             //      'class'    => 'ZephyrCoursBundle:Subject',
             //      'property' => 'name',

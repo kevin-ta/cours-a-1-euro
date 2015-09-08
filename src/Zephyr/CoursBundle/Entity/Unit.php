@@ -24,12 +24,6 @@ class Unit
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Subject", inversedBy="units")
-     * @ORM\JoinColumn(name="subject_id", referencedColumnName="id")
-     */
-    protected $subject;
-
-    /**
      * @ORM\ManyToOne(targetEntity="Zephyr\CoursBundle\Entity\Classe", inversedBy="units")
      * @ORM\JoinColumn(name="classe", referencedColumnName="id")
      */
@@ -66,29 +60,6 @@ class Unit
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param \Zephyr\CoursBundle\Entity\Subject $subject
-     * @return Unit
-     */
-    public function setSubject(\Zephyr\CoursBundle\Entity\Subject $subject = null)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return \Zephyr\CoursBundle\Entity\Subject 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
     }
 
     public function getUnit()

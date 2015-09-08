@@ -27,11 +27,6 @@ class Course
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $subject;
-
-    /**
-     * @ORM\Column(type="string", length=50)
-     */
     private $unit;
 
     /**
@@ -70,29 +65,6 @@ class Course
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set subject
-     *
-     * @param string $subject
-     * @return Course
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string 
-     */
-    public function getSubject()
-    {
-        return $this->subject;
     }
 
     /**
