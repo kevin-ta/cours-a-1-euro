@@ -317,6 +317,7 @@ class DefaultController extends Controller
             if ($this->getRequest()->request->get('submit') == 'validate')
             {
                 $course->setValid(1);
+                $em->persist($course);
             }
 
             if ($this->getRequest()->request->get('submit') == 'suppr')
@@ -327,9 +328,9 @@ class DefaultController extends Controller
             if ($this->getRequest()->request->get('submit') == 'note')
             {
                 $course->setNote($_POST['note']);
+                $em->persist($course);
             }
 
-            $em->persist($course);
             $em->flush();
 
             return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
