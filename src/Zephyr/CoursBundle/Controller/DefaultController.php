@@ -51,7 +51,7 @@ class DefaultController extends Controller
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setSubject('[Cours-a-1-euro] Informations')
                 ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
                 ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
                 ->setBody(
@@ -160,7 +160,7 @@ class DefaultController extends Controller
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setSubject('[Cours-a-1-euro] Informations')
                 ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
                 ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
                 ->setBody(
@@ -373,7 +373,7 @@ class DefaultController extends Controller
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setSubject('[Cours-a-1-euro] Informations')
                 ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
                 ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
                 ->setBody(
@@ -458,7 +458,7 @@ class DefaultController extends Controller
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
 
                 $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours-a-1-euro] Info à garder précieusement')
+                ->setSubject('[Cours-a-1-euro] Informations')
                 ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
                 ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
                 ->setBody(
