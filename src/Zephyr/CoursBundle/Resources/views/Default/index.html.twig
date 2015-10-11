@@ -44,10 +44,6 @@
                     <label for="password">Mot de passe :</label>
                     <input type="password" id="password" name="password" class="form-control" placeholder="Première connexion ? Ne rien remplir. Il vous sera envoyé par mail après ce formulaire.">
                     <div class="form-group">
-                        {{ form_label(form.classe) }}
-                        {{ form_widget(form.classe, {'attr': {'class': 'form-control', 'placeholder':'E1, E2...'}}) }}
-                    </div>
-                    <div class="form-group">
                         {{ form_label(form.unit) }}
                         {{ form_widget(form.unit, {'attr': {'class': 'form-control', 'placeholder':'SFM-2001, EIG-2010...'}}) }}
                     </div>

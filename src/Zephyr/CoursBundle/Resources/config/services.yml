@@ -10,12 +10,3 @@ services:
         class: Zephyr\CoursBundle\Form\CourseType
         tags:
             - { name: form.type, alias: course }
-    zephyr_cours.classe:
-        class: Zephyr\CoursBundle\Form\ClasseType
-        tags:
-            - { name: form.type, alias: classe }
-    zephyr_cours.type.unit_selector:
-        class: Zephyr\CoursBundle\Form\UnitSelectorType
-        arguments: ["@doctrine.orm.entity_manager"]
-        tags:
-            - { name: form.type, alias: unit_selector }

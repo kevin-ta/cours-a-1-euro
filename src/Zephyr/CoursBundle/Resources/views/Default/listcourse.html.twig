@@ -1,17 +1,17 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <h1>Un cours d'une heure pour 1 euro</h1>
+    <h1>Liste des cours disponibles</h1>
     <br>
     <div class="row">
         <!--step 1 status -->
         <div class="col-md-6">
             <h3>Nous recherchons un prof :</h3><br><br>
-            {% set classe2 = '' %}
+            {% set subject2 = '' %}
             {% for course in courses %}
-                {% if classe2 != course.classe %}
-                    {% set classe2 = course.classe %}
-                    <h2>{{ classe2 }}</h2>
+                {% if subject2 != course.subject %}
+                    {% set subject2 = course.subject %}
+                    <h2>{{ subject2 }}</h2>
                 {% endif %}
                 {% if course.valid == 0 and course.prof == NULL %}
                     <a href="{{ path('zephyr_cours_addprof', {id:course.id}) }}" data-id="{{ course.id }}">
@@ -23,11 +23,11 @@
         </div>
         <div class="col-md-6">
             <h3>Il manque des élèves :</h3><br><br> 
-            {% set classe = '' %}
+            {% set subject = '' %}
             {% for course in courses %}
-                {% if classe != course.classe %}
-                    {% set classe = course.classe %}
-                    <h2>{{ classe }}</h2>
+                {% if subject != course.subject %}
+                    {% set subject = course.subject %}
+                    <h2>{{ subject }}</h2>
                 {% endif %}
                 {% if course.valid == 0 and course.prof != NULL %}
                     <a href="{{ path('zephyr_cours_addstudent', {id:course.id}) }}" data-id="{{ course.id }}">

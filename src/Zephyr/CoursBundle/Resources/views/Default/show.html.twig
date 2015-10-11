@@ -6,6 +6,7 @@
         <div class="list-group-item">
             <h4>Cours n°{{ course.id }} :</h4> 
             <p>
+            Matière : {{ course.subject }}<br>
             Unité : {{ course.unit }}<br>
             Date : Le {{ course.date|date("d/m/Y à h:i") }}<br>
             Professeur : {{ course.prof }}<br>

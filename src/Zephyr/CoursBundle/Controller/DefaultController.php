@@ -15,7 +15,6 @@ use Zephyr\CoursBundle\Entity\Student;
 use Zephyr\CoursBundle\Form\CourseType;
 use Zephyr\CoursBundle\Entity\Subject;
 use Zephyr\CoursBundle\Entity\Unit;
-use Zephyr\CoursBundle\Entity\Classe;
 
 class DefaultController extends Controller
 {
@@ -83,7 +82,7 @@ class DefaultController extends Controller
                 ));
 
             $course_exist = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findBy(array(
-                'unit' => $form->get('unit')->getData()->__toString(),
+                'unit' => $form->get('unit')->getData()->getName(),
                 'date' => $form->get('date')->getData()
                 ));
 
@@ -110,6 +109,7 @@ class DefaultController extends Controller
                 $course->addStudent($student);
             }
 
+            $course->setSubject($form->get('unit')->getData()->getSubject()->getName());
             $course->setValid(0);
             $em->persist($course);
             $em->persist($student);

@@ -22,7 +22,7 @@ class Course
     /**
      * @ORM\Column(type="string", length=50)
      */
-    private $classe;
+    private $subject;
 
     /**
      * @ORM\Column(type="string", length=50)
@@ -143,26 +143,26 @@ class Course
     }
 
     /**
-     * Set classe
+     * Set subject
      *
-     * @param string $classe
+     * @param string $subject
      * @return Course
      */
-    public function setClasse($classe)
+    public function setSubject($subject)
     {
-        $this->classe = $classe;
+        $this->subject = $subject;
 
         return $this;
     }
 
     /**
-     * Get classe
+     * Get subject
      *
      * @return string 
      */
-    public function getClasse()
+    public function getSubject()
     {
-        return $this->classe;
+        return $this->subject;
     }
 
     /**

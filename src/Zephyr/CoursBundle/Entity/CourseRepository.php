@@ -15,7 +15,7 @@ class CourseRepository extends EntityRepository
 	public function findAllOrdered()
     {
         $qb = $this->createQueryBuilder('course')
-            ->addOrderBy('course.classe', 'ASC');
+            ->addOrderBy('course.subject', 'ASC');
         $query = $qb->getQuery();
         //Debug
         //var_dump($query->getDQL());die;
