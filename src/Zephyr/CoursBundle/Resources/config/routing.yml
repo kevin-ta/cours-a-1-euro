@@ -29,3 +29,7 @@ zephyr_cours_addstudent:
 zephyr_cours_addprof:
     path:     /addprof/{id}
     defaults: { _controller: ZephyrCoursBundle:Default:addprof }
+
+zephyr_change_password:
+    path:   /changepassword
+    defaults: { _controller: ZephyrCoursBundle:Default:changepassword }

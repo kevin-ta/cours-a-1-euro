@@ -48,11 +48,28 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
-                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                $password = str_shuffle('fOy4c9f5dV');
+                $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
+
+                $message = \Swift_Message::newInstance()
+                ->setSubject('[Cours-a-1-euro] Informations')
+                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+                ->setBody(
+                    $this->renderView(
+                        'ZephyrCoursBundle:Email:email.html.twig',
+                        array(
+                            'name' => $student->getFirstName(),
+                            'code' => $password,
+                            'id' => $student->getId(),
+                        )
+                    )
+                );
+                $this->get('mailer')->send($message);
             }
             else
             {
-                if($student->getPassword() !== $request->request->get('password'))
+                if(!password_verify($request->request->get('password'), $student->getPassword()))
                     return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Le mot de passe est incorrect.'
                     ));
@@ -98,22 +115,6 @@ class DefaultController extends Controller
             $em->persist($student);
             $em->flush();
 
-            $message = \Swift_Message::newInstance()
-            ->setSubject('[Cours-a-1-euro] Informations')
-            ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
-            ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
-            ->setBody(
-                $this->renderView(
-                    'ZephyrCoursBundle:Email:email.html.twig',
-                    array(
-                        'name' => $student->getFirstName(),
-                        'code' => $student->getPassword(),
-                        'id' => $student->getId(),
-                    )
-                )
-            );
-            $this->get('mailer')->send($message);
-
             return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                 'success' => 'Votre demande de cours a été enregistrée.'
             ));
@@ -149,7 +150,8 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
-                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                $password = str_shuffle('fOy4c9f5dV');
+                $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
                 $message = \Swift_Message::newInstance()
                 ->setSubject('[Cours-a-1-euro] Informations')
@@ -160,17 +162,16 @@ class DefaultController extends Controller
                         'ZephyrCoursBundle:Email:email.html.twig',
                         array(
                             'name' => $student->getFirstName(),
-                            'code' => $student->getPassword(),
+                            'code' => $password,
                             'id' => $student->getId(),
                         )
                     )
-                )
-                ;
+                );
                 $this->get('mailer')->send($message);
             }
             else
             {
-                if($student->getPassword() !== $request->request->get('password'))
+                if(!password_verify($request->request->get('password'), $student->getPassword()))
                     return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Le mot de passe est incorrect.'
                     ));
@@ -241,7 +242,8 @@ class DefaultController extends Controller
                     $student->setFirstName($data->first_name);
                     $student->setLastName($data->last_name);
                     $student->setEmail($data->email);
-                    $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                    $password = str_shuffle('fOy4c9f5dV');
+                    $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 }
 
                 if($student->__toString() == $course->getProf()){
@@ -292,7 +294,8 @@ class DefaultController extends Controller
                     $student->setFirstName($data->first_name);
                     $student->setLastName($data->last_name);
                     $student->setEmail($data->email);
-                    $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                    $password = str_shuffle('fOy4c9f5dV');
+                    $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
                 }
 
                 try{
@@ -362,7 +365,8 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
-                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                $password = str_shuffle('fOy4c9f5dV');
+                $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
                 $message = \Swift_Message::newInstance()
                 ->setSubject('[Cours-a-1-euro] Informations')
@@ -373,17 +377,16 @@ class DefaultController extends Controller
                         'ZephyrCoursBundle:Email:email.html.twig',
                         array(
                             'name' => $student->getFirstName(),
-                            'code' => $student->getPassword(),
+                            'code' => $password,
                             'id' => $student->getId(),
                         )
                     )
-                )
-                ;
+                );
                 $this->get('mailer')->send($message);
             }
             else
             {
-                if($student->getPassword() !== $request->request->get('password'))
+                if(!password_verify($request->request->get('password'), $student->getPassword()))
                     return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Le mot de passe est incorrect.'
                     ));
@@ -447,7 +450,8 @@ class DefaultController extends Controller
                 $student->setFirstName($data->first_name);
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
-                $student->setPassword(str_shuffle('fOy4c9f5dV'));
+                $password = str_shuffle('fOy4c9f5dV');
+                $student->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
                 $message = \Swift_Message::newInstance()
                 ->setSubject('[Cours-a-1-euro] Informations')
@@ -458,17 +462,16 @@ class DefaultController extends Controller
                         'ZephyrCoursBundle:Email:email.html.twig',
                         array(
                             'name' => $student->getFirstName(),
-                            'code' => $student->getPassword(),
+                            'code' => $password,
                             'id' => $student->getId(),
                         )
                     )
-                )
-                ;
+                );
                 $this->get('mailer')->send($message);
             }
             else
             {
-                if($student->getPassword() !== $request->request->get('password'))
+                if(!password_verify($request->request->get('password'), $student->getPassword()))
                     return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                         'error' => 'Le mot de passe est incorrect.'
                     ));
@@ -499,6 +502,39 @@ class DefaultController extends Controller
         }
 
         return $this->render('ZephyrCoursBundle:Default:addprof.html.twig', array('course' => $course));
+    }
+
+    public function changepasswordAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if($request->isMethod('POST')){
+            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
+            if($student === null){
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => "Vous n'êtes pas encore inscrit à un cours, nous ne pouvons pas retrouver un mot de passe inexistant."
+                    ));
+            }
+            if(!password_verify($request->request->get('password'), $student->getPassword()))
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => "L'ancien mot de passe est incorrect."
+            ));
+
+            if($request->request->get('newpassword') !== $request->request->get('new2password'))
+                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'error' => "Votre nouveau mot de passe ne correspond pas."
+                ));
+
+            $student->setPassword(password_hash($request->request->get('newpassword'), PASSWORD_DEFAULT));
+            $em->persist($student);
+            $em->flush();
+
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                    'success' => "Votre nouveau mot de passe a bien été enregistré."
+                ));
+        }
+
+        return $this->render('ZephyrCoursBundle:Default:password.html.twig');
     }
 
 	public function searchAction($query)
