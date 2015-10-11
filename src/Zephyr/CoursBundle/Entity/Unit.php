@@ -70,10 +70,10 @@ class Unit
     /**
      * Set subject
      *
-     * @param \Zephyr\CoursBundle\Entity\Classe $subject
+     * @param \Zephyr\CoursBundle\Entity\Subject $subject
      * @return Unit
      */
-    public function setSubject(\Zephyr\CoursBundle\Entity\Classe $subject = null)
+    public function setSubject(\Zephyr\CoursBundle\Entity\Subject $subject = null)
     {
         $this->subject = $subject;
 
@@ -83,7 +83,7 @@ class Unit
     /**
      * Get subject
      *
-     * @return \Zephyr\CoursBundle\Entity\Classe 
+     * @return \Zephyr\CoursBundle\Entity\Subject 
      */
     public function getSubject()
     {
