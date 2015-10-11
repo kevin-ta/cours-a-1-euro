@@ -11,11 +11,10 @@ class CourseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('unit', 'entity', array(
-                  'class'    => 'ZephyrCoursBundle:Unit',
-                  'property' => 'name',
-                  'multiple' => false,
-                  'expanded' => false))
+            ->add('unit', 'unit_selector', array(
+                  'trim'        => true,
+                  'max_length'  => '8',
+                  'label'       => 'Unité'))
             ->add('date', 'collot_datetime', array( 'pickerOptions' => array(
             	'format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 1,
