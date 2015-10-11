@@ -49,23 +49,6 @@ class DefaultController extends Controller
                 $student->setLastName($data->last_name);
                 $student->setEmail($data->email);
                 $student->setPassword(str_shuffle('fOy4c9f5dV'));
-
-                $message = \Swift_Message::newInstance()
-                ->setSubject('[Cours-a-1-euro] Informations')
-                ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
-                ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
-                ->setBody(
-                    $this->renderView(
-                        'ZephyrCoursBundle:Email:email.html.twig',
-                        array(
-                            'name' => $student->getFirstName(),
-                            'code' => $student->getPassword(),
-                            'id' => $student->getId(),
-                        )
-                    )
-                )
-                ;
-                $this->get('mailer')->send($message);
             }
             else
             {
@@ -79,7 +62,7 @@ class DefaultController extends Controller
 
             if(! $form->isValid())
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'error' => 'Le formulaire est mal rempli. Avez-vous respecté la typo ?'
+                    'error' => 'Le formulaire est mal rempli. Avez-vous respecté la typo ? (Format matière : XXX-1234)'
                 ));
 
             $course_exist = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findBy(array(
@@ -104,27 +87,36 @@ class DefaultController extends Controller
             if ($this->getRequest()->request->get('submit') == 'prof')
             {
                 $course->setProf($student);
-                $course->setValid(0);
-                $em->persist($course);
-                $em->persist($student);
-                $em->flush();
-
-                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                'success' => 'Votre demande de cours a été enregistrée.'
-                ));
             }
             elseif ($this->getRequest()->request->get('submit') == 'eleve')
             {
                 $course->addStudent($student);
-                $course->setValid(0);
-                $em->persist($course);
-                $em->persist($student);
-                $em->flush();
-
-                return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
-                    'success' => 'Votre demande de cours a été enregistrée.'
-                ));
             }
+
+            $course->setValid(0);
+            $em->persist($course);
+            $em->persist($student);
+            $em->flush();
+
+            $message = \Swift_Message::newInstance()
+            ->setSubject('[Cours-a-1-euro] Informations')
+            ->setFrom(array('bde@edu.esiee.fr' => 'BDE ESIEE Paris'))
+            ->setTo(array($student->getEmail() => $student->getFirstName() . ' ' . $student->getLastName()))
+            ->setBody(
+                $this->renderView(
+                    'ZephyrCoursBundle:Email:email.html.twig',
+                    array(
+                        'name' => $student->getFirstName(),
+                        'code' => $student->getPassword(),
+                        'id' => $student->getId(),
+                    )
+                )
+            );
+            $this->get('mailer')->send($message);
+
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'success' => 'Votre demande de cours a été enregistrée.'
+            ));
         }
 
         return $this->render('ZephyrCoursBundle:Default:index.html.twig', array(
