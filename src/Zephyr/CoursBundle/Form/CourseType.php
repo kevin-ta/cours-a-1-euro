@@ -18,9 +18,9 @@ class CourseType extends AbstractType
             ->add('date', 'collot_datetime', array( 'pickerOptions' => array(
             	'format' => 'dd/mm/yyyy hh:ii',
                 'weekStart' => 1,
-                'startDate' => date('d/m/Y 00:00'), //example
-                'endDate' => date('01/07/2016 00:00'), //example
-                'daysOfWeekDisabled' => [], //example
+                'startDate' => date('d/m/Y 00:00'),
+                'endDate' => date('01/07/2016 00:00'),
+                'daysOfWeekDisabled' => [],
                 'autoclose' => false,
                 'startView' => 'month',
                 'minView' => 'hour',
@@ -31,11 +31,11 @@ class CourseType extends AbstractType
                 'language' => 'fr',
                 'forceParse' => false,
                 'minuteStep' => 60,
-                'pickerReferer ' => 'default', //deprecated
+                'pickerReferer ' => 'default',
                 'pickerPosition' => 'top-right',
                 'viewSelect' => 'hour',
                 'showMeridian' => false,
-                'initialDate' => date('d/m/Y'), //example
+                'initialDate' => date('d/m/Y'),
                 )))
         ;
     }

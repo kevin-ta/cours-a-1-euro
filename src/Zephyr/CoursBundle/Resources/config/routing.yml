@@ -7,11 +7,11 @@ api_get_student:
     defaults: { _controller: ZephyrCoursBundle:Default:search }
 
 zephyr_cours_mycourse:
-    path:   /mycourse
+    path:   /my-course
     defaults: { _controller: ZephyrCoursBundle:Default:mycourse }
 
 zephyr_cours_listcourse:
-    path:   /listcourse
+    path:   /list-course
     defaults: { _controller: ZephyrCoursBundle:Default:listcourse }
 
 zephyr_cours_admin:
@@ -23,13 +23,17 @@ zephyr_cours_show:
     defaults: { _controller: ZephyrCoursBundle:Default:show }
 
 zephyr_cours_addstudent:
-    path:     /addstudent/{id}
+    path:     /add-student/{id}
     defaults: { _controller: ZephyrCoursBundle:Default:addstudent }
 
 zephyr_cours_addprof:
-    path:     /addprof/{id}
+    path:     /add-prof/{id}
     defaults: { _controller: ZephyrCoursBundle:Default:addprof }
 
 zephyr_change_password:
-    path:   /changepassword
+    path:   /change-password
     defaults: { _controller: ZephyrCoursBundle:Default:changepassword }
+
+zephyr_token_password:
+    path:   /change-password/{id}/{token}
+    defaults: { _controller: ZephyrCoursBundle:Default:tokenpassword }

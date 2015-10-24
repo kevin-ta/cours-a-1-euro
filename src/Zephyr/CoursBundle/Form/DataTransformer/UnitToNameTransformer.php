@@ -1,15 +1,19 @@
 <?php
+
 namespace Zephyr\CoursBundle\Form\DataTransformer;
+
 use Symfony\Component\Form\DataTransformerInterface;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 use Doctrine\Common\Persistence\ObjectManager;
 use Zephyr\CoursBundle\Entity\Unit;
+
 class UnitToNameTransformer implements DataTransformerInterface
 {
     /**
      * @var ObjectManager
      */
     private $om;
+
     /**
      * @param ObjectManager $om
      */
@@ -17,6 +21,7 @@ class UnitToNameTransformer implements DataTransformerInterface
     {
         $this->om = $om;
     }
+
     public function transform($unit)
     {
         if (null === $unit) {
@@ -24,6 +29,7 @@ class UnitToNameTransformer implements DataTransformerInterface
         }
         return $unit->getName();
     }
+
     public function reverseTransform($name)
     {
         if (!$name) {

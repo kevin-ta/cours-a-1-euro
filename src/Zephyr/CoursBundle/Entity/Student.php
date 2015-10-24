@@ -44,6 +44,11 @@ class Student
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
      **/
     private $courses;
@@ -239,5 +244,28 @@ class Student
     {
         $name = $this->concat();
         return $name;
+    }
+
+    /**
+     * Set token
+     *
+     * @param string $token
+     * @return Student
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Get token
+     *
+     * @return string 
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 }

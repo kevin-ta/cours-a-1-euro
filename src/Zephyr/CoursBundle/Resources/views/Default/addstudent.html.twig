@@ -11,7 +11,7 @@
         </div>
         <div id="form" style="display: none">
             <label for="password">Mot de passe :</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Première connexion ? Ne rien remplir. Il vous sera envoyé par mail après ce formulaire.">
+            <input type="password" id="password" name="password" class="form-control" placeholder="C'est la première fois ? Ne rentrez rien, vous recevrez un mot de passe par mail dès l'envoi de ce formulaire."><br>
             <p>Voulez-vous vraiment intégrer le cours n°{{course.id}} : {{course.unit}} le {{ course.date|date("d/m/Y à h:i") }} avec le prof {{course.prof}} ?</p>
             <center>
                 <button id="send" class="btn btn-primary" style="margin-top: 15px;">
