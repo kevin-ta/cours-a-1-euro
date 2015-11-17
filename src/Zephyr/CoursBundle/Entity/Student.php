@@ -50,7 +50,8 @@ class Student
 
     /**
      * @ORM\ManyToMany(targetEntity="Zephyr\CoursBundle\Entity\Course", mappedBy="students")
-     **/
+     * @ORM\JoinTable(name="course_student")
+     */
     private $courses;
 
     /**

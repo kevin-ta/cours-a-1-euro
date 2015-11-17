@@ -28,7 +28,7 @@ class DefaultController extends Controller
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
 
-            if($student === null)
+            if($student == null)
             {
                 try{
                     $fairpay = new FairPay();
@@ -140,7 +140,7 @@ class DefaultController extends Controller
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
 
-            if($student === null)
+            if($student == null)
             {
                 try{
                     $fairpay = new FairPay();
@@ -194,8 +194,11 @@ class DefaultController extends Controller
 
             $prof = $em->getRepository('ZephyrCoursBundle:Course')->findByProf($student->__toString());
             $eleve = $student->getCourses();
+            $password = substr($student->getPassword(), 5, 10);
 
             return $this->render('ZephyrCoursBundle:Default:mycourses.html.twig', array(
+                'id' => $student->getId(),
+                'password' => $password,
                 'prof' => $prof,
                 'eleve' => $eleve
             ));
@@ -240,7 +243,7 @@ class DefaultController extends Controller
 
             if ($this->getRequest()->request->get('submit') == 'addeleve')
             {
-                if($student === null)
+                if($student == null)
                 {
                     try{
                         $fairpay = new FairPay();
@@ -313,7 +316,7 @@ class DefaultController extends Controller
 
             if ($this->getRequest()->request->get('submit') == 'deleleve')
             {
-                if($student === null){
+                if($student == null){
                     return $this->render('ZephyrCoursBundle:Default:successAdmin.html.twig', array(
                         'error' => "Cet élève n'existe pas."
                     ));
@@ -368,7 +371,7 @@ class DefaultController extends Controller
         if($request->isMethod('POST'))
         {
            $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-            if($student === null)
+            if($student == null)
             {
                 try{
                     $fairpay = new FairPay();
@@ -464,7 +467,7 @@ class DefaultController extends Controller
         if($request->isMethod('POST'))
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-            if($student === null)
+            if($student == null)
             {
                 try{
                     $fairpay = new FairPay();
@@ -523,14 +526,24 @@ class DefaultController extends Controller
                 ));
             }
 
-            if($course->getProf() != NULL )
+            if($course->getProf() != NULL)
             {
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => 'Il existe déjà un professeur.'
                 ));
             }
 
-            //Manque la sécurité si on est déjà un élève du cours.
+            $eleves = $course->getStudents();
+
+            for($i = 0; $i < count($eleves); $i++)
+            {
+                if($student->getId() == $eleves[$i]->getId())
+                {
+                    return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                        'error' => 'Vous êtes déjà un élève de ce cours.'
+                    ));
+                }
+            }
 
             $course->setProf($student);
             $em->persist($course);
@@ -552,7 +565,7 @@ class DefaultController extends Controller
         if($request->isMethod('POST'))
         {
             $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($request->request->get('id'));
-            if($student === null)
+            if($student == null)
             {
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => "Vous n'êtes pas encore inscrit à un cours, nous ne pouvons pas retrouver un mot de passe inexistant."
@@ -593,7 +606,7 @@ class DefaultController extends Controller
                 ));
             }
 
-            if($request->request->get('newpassword') !== $request->request->get('new2password'))
+            if($request->request->get('newpassword') != $request->request->get('new2password'))
             {
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => "Votre nouveau mot de passe ne correspond pas."
@@ -633,7 +646,7 @@ class DefaultController extends Controller
                 ));
             }
 
-            if($request->request->get('newpassword') !== $request->request->get('new2password'))
+            if($request->request->get('newpassword') != $request->request->get('new2password'))
                 return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
                     'error' => "Votre nouveau mot de passe ne correspond pas."
                 ));
@@ -654,6 +667,79 @@ class DefaultController extends Controller
         ));
     }
 
+    public function coursdelAction(Request $request, $id, $cours_id, $password)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($id);
+        $course = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findOneById($cours_id);
+        $token = substr($student->getPassword(), 5, 10);
+
+        if($student == null)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Cet étudiant n'existe pas."
+            ));
+        }
+
+        if($course == null)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Ce cours n'existe pas."
+            ));
+        }
+
+        if($password != $token)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Erreur token expiré."
+            ));
+        }
+
+        $em->remove($course);
+        $em->flush();
+
+        return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+            'success' => "Le cours a été supprimé."
+        ));
+    }
+
+    public function coursremoveAction(Request $request, $id, $cours_id, $password)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $student = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findOneById($id);
+        $course = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Course')->findOneById($cours_id);
+        $token = substr($student->getPassword(), 5, 10);
+
+        if($student == null)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Cet étudiant n'existe pas."
+            ));
+        }
+
+        if($course == null)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Ce cours n'existe pas."
+            ));
+        }
+
+        if($password != $token)
+        {
+            return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+                'error' => "Erreur token expiré."
+            ));
+        }
+
+        $course->removeStudent($student);
+        $em->persist($course);
+        $em->flush();
+
+        return $this->render('ZephyrCoursBundle:Default:success.html.twig', array(
+            'success' => "Vous avez été enlevé du cours."
+        ));
+    }
+
 	public function searchAction($query)
     {
         try{
@@ -663,7 +749,7 @@ class DefaultController extends Controller
             $student = $fairpay->getStudent($query);
             $inBdd = $this->getDoctrine()->getRepository('ZephyrCoursBundle:Student')->findAsArray($student->id);
 
-            if($inBdd !== null)
+            if($inBdd != null)
                 $student = $inBdd;
         }
         catch(ApiErrorException $e){

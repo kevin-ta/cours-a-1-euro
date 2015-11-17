@@ -37,3 +37,11 @@ zephyr_change_password:
 zephyr_token_password:
     path:   /change-password/{id}/{token}
     defaults: { _controller: ZephyrCoursBundle:Default:tokenpassword }
+
+zephyr_cours_del:
+    path:   /cours-del/{id}/{cours_id}/{password}
+    defaults: { _controller: ZephyrCoursBundle:Default:coursdel }
+
+zephyr_cours_remove:
+    path:   /cours-remove/{id}/{cours_id}/{password}
+    defaults: { _controller: ZephyrCoursBundle:Default:coursremove }

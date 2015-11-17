@@ -5,14 +5,14 @@
 <h3>Voici les cours où vous êtes prof :</h3>
 <p>
 {% for course in prof %}
-    Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}
-        <br>
+	Cours n°{{ course.id }} : {{ course.unit }} le {{ course.date|date("d/m/Y à h:i") }}&nbsp;&nbsp;<a href="{{ path('zephyr_cours_del', {id:id, cours_id:course.id, password:password}) }}" data-id="{{ course.id }}"><i class="fa fa-times"></i></a>
+    <br>
 {% endfor %}
 </p>
 <h3>Voici les cours où vous êtes élève :</h3>
 {% for course2 in eleve %}
-    Cours n°{{ course2.id }} : {{ course2.unit }} le {{ course2.date|date("d/m/Y à h:i") }}
-        <br>
+	Cours n°{{ course2.id }} : {{ course2.unit }} le {{ course2.date|date("d/m/Y à h:i") }}&nbsp;&nbsp;<a href="{{ path('zephyr_cours_remove', {id:id, cours_id:course2.id, password:password}) }}" data-id="{{ course2.id }}"><i class="fa fa-user-times"></i></a>
+    <br>
 {% endfor %}
 
 {% endblock body %}
