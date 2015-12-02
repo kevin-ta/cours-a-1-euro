@@ -41,17 +41,17 @@
                     <input id="search" name="id" class="form-control" placeholder="Nom, Prénom ou code cantine" style="margin-bottom: 15px">
                     <i id="spinner" class="fa fa-2x fa-spinner fa-spin" style="float: right;margin: -45px 5px 0 0;display: none"></i>
                 </div>
-                <div id="form" style="display: none">
+                <div id="form" style="display: none"></br>
                     <label for="password">Mot de passe :</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="C'est la première fois ? Ne rentrez rien, vous recevrez un mot de passe par mail dès l'envoi de ce formulaire.">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="C'est la première fois ? Ne rentrez rien, vous recevrez un mot de passe par mail dès l'envoi de ce formulaire."></br>
                     <div class="form-group">
                         {{ form_label(form.unit) }}
-                        {{ form_widget(form.unit, {'attr': {'class': 'form-control', 'placeholder':'SFM-2001, EIG-2010... Respectez la typo.'}}) }}
-                    </div>
+                        {{ form_widget(form.unit, {'attr': {'class': 'form-control chosenselect'}}) }}
+                    </div></br>
                     <div class="form-group">
                         {{ form_label(form.date) }}
                         {{ form_widget(form.date) }}
-                    </div>
+                    </div></br>
                     <center>
                         <button name="submit" value="prof" id="send" class="btn btn-primary prof" style="margin-top: 15px; display:none">
                             <i class="glyphicon glyphicon-ok"></i> Proposer un cours
@@ -64,4 +64,15 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(".chosenselect").chosen({
+            placeholder_text_single : "Sélectionnez une matière",
+            allow_single_deselect : true,
+            no_results_text: "Matière introuvable!",
+            search_contains : true,
+        })
+    </script>
 {% endblock %}
