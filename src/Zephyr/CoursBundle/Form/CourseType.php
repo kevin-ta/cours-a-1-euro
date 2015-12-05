@@ -5,6 +5,7 @@ namespace Zephyr\CoursBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
 
 class CourseType extends AbstractType
 {
@@ -18,6 +19,10 @@ class CourseType extends AbstractType
             ->add('unit', 'entity', array(
                     'class' => 'ZephyrCoursBundle:Unit',
                     'choice_label' => 'name',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('u')
+                        ->orderBy('u.name', 'ASC');
+                     },
                     'multiple' => false,
                     'expanded' => false,
                     'label' => 'Unité'))
